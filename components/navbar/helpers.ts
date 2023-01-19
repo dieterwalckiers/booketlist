@@ -9,14 +9,14 @@ export function buildNavItems(
 ): Array<NavItem> {
     return [
         {
-            label: "Books",
+            label: "Books +",
             children: books.map((book) => ({
                 label: book.title,
                 href: `/books/${book.slug}`,
             })),
         },
         {
-            label: "Publishers",
+            label: "Publishers +",
             children: publishers.map((publisher) => ({
                 label: publisher.name,
                 href: `/publishers/${publisher.slug}`,

@@ -17,11 +17,16 @@ const DesktopNav = ({ navItems }) => {
 
     return (
         <Stack direction={'row'} spacing={4}>
-            {(navItems || []).map((navItem) => (
-                <Box key={navItem.label}>
+            {(navItems || []).map((navItem, i) => (
+                <Box
+                    key={navItem.label}
+                    className="navbar-body-item"
+                    borderLeft={{ base: 'none', md: i === 0 ? 'none' : '1px' }}
+                >
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
+                                className="navbar-body-item-link"
                                 p={2}
                                 href={navItem.href ?? '#'}
                                 fontSize={'sm'}
@@ -30,19 +35,23 @@ const DesktopNav = ({ navItems }) => {
                                 _hover={{
                                     textDecoration: 'none',
                                     color: linkHoverColor,
-                                }}>
+                                }}
+                                pr={4}
+                                pl={8}
+                            >
                                 {navItem.label}
                             </Link>
                         </PopoverTrigger>
 
                         {navItem.children && (
                             <PopoverContent
-                                border={0}
-                                boxShadow={'xl'}
+                                border={1}
+                                borderStyle={'solid'}
+                                boxShadow={"sm"}
                                 bg={popoverContentBgColor}
                                 p={4}
-                                rounded={'xl'}
-                                minW={'sm'}>
+                                minW={'sm'}
+                            >
                                 <Stack>
                                     {navItem.children.map((child) => (
                                         <DesktopSubNav key={child.label} {...child} />

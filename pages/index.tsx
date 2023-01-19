@@ -9,7 +9,7 @@ export default function IndexPage({ books, navItems, settings }) {
     <ChakraBaseProvider>
       <VStack
         id="layout"
-        width="100%"
+        width={{ base: "auto", md: "60vw" }}
         margin="auto"
       >
         <Navbar navItems={navItems} />

@@ -31,7 +31,7 @@ export default function NavBar<Props>({ navItems }) {
     return (
         <Box
             id="navbar"
-            width={{ base: "auto", md: "80vw" }}
+            width="100%"
         >
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
@@ -39,9 +39,10 @@ export default function NavBar<Props>({ navItems }) {
                 minH={'60px'}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
+                borderTop={1}
                 borderBottom={1}
                 borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.900')}
+                // borderColor={useColorModeValue('gray.200', 'gray.900')}
                 align={'center'}
                 id="navbar-inner"
             >
@@ -68,7 +69,9 @@ export default function NavBar<Props>({ navItems }) {
                     <Text
                         textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
                         fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
+                        color={useColorModeValue('gray.800', 'white')}
+                        flex={1}
+                    >
                         Logo
                     </Text>
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
