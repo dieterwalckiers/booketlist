@@ -17,7 +17,35 @@ export default defineConfig({
   //edit schemas in './sanity/schema'
   schema,
   plugins: [
-    deskTool(),
+    deskTool({
+      structure: (S) => S.list()
+        .title("Content")
+        .items([
+          S.listItem()
+            .title("Settings")
+            .child(
+              S.editor()
+                .schemaType("settings")
+                .documentId("settings")
+            ),
+          S.listItem()
+            .title("Pages")
+            .child(
+              S.documentTypeList("page")
+            ),
+          S.listItem()
+            .title("Books")
+            .child(
+              S.documentTypeList("book")
+            ),
+          S.listItem()
+            .title("Publishers")
+            .child(
+              S.documentTypeList("publisher")
+            ),
+
+        ])
+    }),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),

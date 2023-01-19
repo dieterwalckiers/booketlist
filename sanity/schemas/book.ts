@@ -17,6 +17,7 @@ const book = {
             name: 'description',
             type: 'array',
             of: [{ type: 'block' }],
+            title: "Description",
         },
         {
             name: 'cover',
