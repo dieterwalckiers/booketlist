@@ -16,28 +16,33 @@ const DesktopNav = ({ navItems }) => {
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
     return (
-        <Stack direction={'row'} spacing={4}>
+        <Stack
+            id="desktop-nav"
+            direction={'row'}
+            height={{ base: "inherit", md: "50px" }}
+            spacing={0}
+        >
             {(navItems || []).map((navItem, i) => (
                 <Box
                     key={navItem.label}
                     className="navbar-body-item"
                     borderLeft={{ base: 'none', md: i === 0 ? 'none' : '1px' }}
+                    width={{ base: "auto", md: "200px" }}
+                    textAlign={{ base: "inherit", md: "center" }}
                 >
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
                                 className="navbar-body-item-link"
-                                p={2}
                                 href={navItem.href ?? '#'}
-                                fontSize={'sm'}
-                                fontWeight={500}
+                                fontSize={'xl'}
+                                fontWeight={300}
                                 color={linkColor}
                                 _hover={{
                                     textDecoration: 'none',
                                     color: linkHoverColor,
                                 }}
-                                pr={4}
-                                pl={8}
+                                textAlign={{ base: "inherit", md: "center" }}
                             >
                                 {navItem.label}
                             </Link>

@@ -20,18 +20,19 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             display={'block'}
             p={2}
             rounded={'md'}
-            //_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
-            // _hover={{ fontWeight: 'bold' }}
+        //_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
+        // _hover={{ fontWeight: 'bold' }}
         >
             <Stack direction={'row'} align={'center'}>
                 <Box>
                     <Text
                         transition={'all .1s ease'}
                         _groupHover={{ color: 'orange.400' }}
-                        fontWeight={500}>
+                        fontWeight={500}
+                    >
                         {label}
                     </Text>
-                    <Text fontSize={'sm'}>{subLabel}</Text>
+                    {subLabel && (<Text fontSize={'sm'}>{subLabel}</Text>)}
                 </Box>
                 <Flex
                     transition={'all .1s ease'}

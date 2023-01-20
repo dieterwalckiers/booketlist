@@ -15,17 +15,18 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 
-import { client } from "../../sanity/lib/client";
 import { NavItem } from './contract';
 import DesktopNav from './DesktopNav';
-import { buildNavItems } from './helpers';
+import Logo from './Logo';
 import MobileNav from "./MobileNav";
+
 
 interface Props {
     navItems: NavItem[];
+    logoData: any;
 }
 
-export default function NavBar<Props>({ navItems }) {
+export default function NavBar<Props>({ navItems, logoData }) {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
@@ -37,8 +38,8 @@ export default function NavBar<Props>({ navItems }) {
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
                 minH={'60px'}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
+                pt={{ base: 2 }}
+                pb={{ base: 4 }}
                 borderTop={1}
                 borderBottom={1}
                 borderStyle={'solid'}
@@ -66,15 +67,13 @@ export default function NavBar<Props>({ navItems }) {
                     justify={{ base: 'center' }}
                     id="navbar-body-items"
                 >
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}
-                        flex={1}
+                    <Logo logoData={logoData} />
+                    <Flex
+                        display={{ base: 'none', md: 'flex' }}
+                        ml={10}
+                        flex={{ base: "auto", md: 1 }}
+                        justifyContent={{ base: "auto", md: "flex-end" }}
                     >
-                        Logo
-                    </Text>
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                         <DesktopNav navItems={navItems} />
                     </Flex>
                 </Flex>
