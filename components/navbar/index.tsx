@@ -33,6 +33,7 @@ export default function NavBar<Props>({ navItems, logoData }) {
         <Box
             id="navbar"
             width="100%"
+            mt={{ base: 0, md: 6 }}
         >
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
@@ -49,7 +50,7 @@ export default function NavBar<Props>({ navItems, logoData }) {
             >
                 <Flex
                     flex={{ base: 1, md: 'auto' }}
-                    ml={{ base: -2 }}
+                    // ml={{ base: -2 }}
                     display={{ base: 'flex', md: 'none' }}
                     id="navbar-menu-trigger"
                 >
@@ -73,6 +74,7 @@ export default function NavBar<Props>({ navItems, logoData }) {
                         ml={10}
                         flex={{ base: "auto", md: 1 }}
                         justifyContent={{ base: "auto", md: "flex-end" }}
+                        alignItems="center"
                     >
                         <DesktopNav navItems={navItems} />
                     </Flex>

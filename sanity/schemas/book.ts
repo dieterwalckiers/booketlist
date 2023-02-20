@@ -9,9 +9,9 @@ const book = {
             title: 'Title'
         },
         {
-            name: 'author',
-            type: 'string',
-            title: 'Author',
+            name: 'authors',
+            type: "array",
+            of: [{ type: "reference", to: { type: "author" } }],
         },
         {
             name: 'description',

@@ -1,5 +1,6 @@
 import { SchemaTypeDefinition } from "sanity";
 
+import author from "./schemas/author";
 import book from "./schemas/book";
 import imageElement from "./schemas/imageElement";
 import page from "./schemas/page";
@@ -11,6 +12,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     settings,
     book,
+    author,
     publisher,
     page,
     richTextElement,

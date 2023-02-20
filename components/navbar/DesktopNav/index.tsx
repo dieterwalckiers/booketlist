@@ -27,8 +27,11 @@ const DesktopNav = ({ navItems }) => {
                     key={navItem.label}
                     className="navbar-body-item"
                     borderLeft={{ base: 'none', md: i === 0 ? 'none' : '1px' }}
-                    width={{ base: "auto", md: "200px" }}
                     textAlign={{ base: "inherit", md: "center" }}
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    px={{ base: 12 }}
                 >
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>

@@ -39,6 +39,11 @@ export default defineConfig({
               S.documentTypeList("book")
             ),
           S.listItem()
+            .title("Authors & Illustrators")
+            .child(
+              S.documentTypeList("author")
+            ),
+          S.listItem()
             .title("Publishers")
             .child(
               S.documentTypeList("publisher")
