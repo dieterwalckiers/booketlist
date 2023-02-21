@@ -6,12 +6,17 @@ const book = {
         {
             name: 'title',
             type: 'string',
-            title: 'Title'
+            title: 'Title',
+            validation: Rule => Rule.required(),
         },
         {
             name: 'authors',
             type: "array",
             of: [{ type: "reference", to: { type: "author" } }],
+        },
+        {
+            name: 'publisher',
+            type: "reference", to: { type: "publisher" },
         },
         {
             name: 'description',

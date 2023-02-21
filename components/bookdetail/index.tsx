@@ -42,6 +42,7 @@ const BookDetail: React.FC<IProps> = ({ book }) => {
                 maxWidth={{ base: "auto", md: "50%" }}
                 direction="column"
                 justifyContent="center"
+                ml={{ base: 0, md: 12 }}
             >
                 <BookInfo book={book} />
             </Flex>

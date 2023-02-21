@@ -4,6 +4,7 @@ export interface Book {
     description: any;
     cover: any;
     slug: string;
+    publisher: Publisher;
 }
 
 export interface Publisher {

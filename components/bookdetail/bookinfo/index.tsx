@@ -30,7 +30,10 @@ const BookInfo: React.FC<IProps> = ({ book }) => {
                     value={book.description}
                 />
             </Box>
-        </Flex>
+            <Box mt={{ base: 4, md: 12 }}>
+                {`Publisher: ${book.publisher.name}`}
+            </Box>
+        </Flex >
     )
 }
 

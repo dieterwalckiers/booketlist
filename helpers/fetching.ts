@@ -17,12 +17,19 @@ export async function fetchAllAuthorSlugs() {
     return authorsRaw.map(author => author.slug.current);
 }
 
+export async function fetchAllPublisherSlugs() {
+    const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
+    const publishersRaw = await authClient.fetch(`*[_type == "publisher"]`);
+    return publishersRaw.map(publisher => publisher.slug.current);
+}
+
 export async function fetchBook(slug: string): Promise<Book> {
     const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
     const bookRaw = await authClient.fetch(`
       *[_type == "book" && slug.current == $slug][0] {
         ...,
         authors[]->{name,slug},
+        publisher->{name,pageContent,slug},
         cover {
           asset->{
             ...,
@@ -44,13 +51,24 @@ export async function fetchAuthor(slug: string): Promise<Author> {
     return normalizeAuthor(authorRaw);
 }
 
+export async function fetchPublisher(slug: string): Promise<Author> {
+    const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
+    const publisherRaw = await authClient.fetch(`
+      *[_type == "publisher" && slug.current == $slug][0] {
+        ...,
+      }
+    `, { slug });
+    return normalizePublisher(publisherRaw);
+}
+
 export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings: any }> {
 
     const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
     const booksRaw = await authClient.fetch(`
         *[_type == "book"]{
             ...,
-            authors[]->{name,slug}
+            authors[]->{name,slug},
+            publisher->{name,pageContent,slug},
         }
     `);
     console.log(`${booksRaw.length} books found`);
@@ -68,7 +86,6 @@ export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings:
     `);
     const publishersRaw = await authClient.fetch(`*[_type == "publisher"]`);
     const publishers = publishersRaw.map(publisher => normalizePublisher(publisher));
-
     const authorsRaw = await authClient.fetch(`*[_type == "author"]`);
     const authors = authorsRaw.filter(noDraft).map(author => normalizeAuthor(author));
     const navItems = buildNavItems(books, publishers, authors);

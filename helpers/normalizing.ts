@@ -6,6 +6,7 @@ export function normalizeBook(book: any): Book {
         ...book,
         slug: book.slug.current,
         authors: book.authors.map(normalizeAuthor),
+        publisher: normalizePublisher(book.publisher),
     };
 }
 
