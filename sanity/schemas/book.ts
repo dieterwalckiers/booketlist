@@ -4,6 +4,10 @@ const book = {
     title: 'Book',
     fields: [
         {
+            name: 'bookCategory',
+            type: "reference", to: { type: "bookCategory" },
+        },
+        {
             name: 'title',
             type: 'string',
             title: 'Title',

@@ -34,6 +34,11 @@ export default defineConfig({
               S.documentTypeList("page")
             ),
           S.listItem()
+            .title("Book categories")
+            .child(
+              S.documentTypeList("bookCategory")
+            ),
+          S.listItem()
             .title("Books")
             .child(
               S.documentTypeList("book")

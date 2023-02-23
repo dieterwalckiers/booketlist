@@ -5,6 +5,13 @@ export interface Book {
     cover: any;
     slug: string;
     publisher: Publisher;
+    bookCategory: BookCategory;
+}
+
+export interface BookCategory {
+    name: string;
+    books: Book[];
+    slug: string;
 }
 
 export interface Publisher {

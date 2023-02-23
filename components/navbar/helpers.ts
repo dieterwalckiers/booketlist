@@ -1,20 +1,20 @@
 
-import { Author, Book, Publisher } from "shared/contract";
+import { Author, Book, BookCategory, Publisher } from "shared/contract";
 
 import { NavItem } from "./contract";
 
 export function buildNavItems(
-    books: Book[],
+    bookCategories: BookCategory[],
     publishers: Publisher[],
     authors: Author[],
 ): Array<NavItem> {
-    console.log("building nav items with authors", authors);
+    console.log("building nav items with bookCategories", bookCategories);
     return [
         {
             label: "Books +",
-            children: books.map((book) => ({
-                label: book.title,
-                href: `/books/${book.slug}`,
+            children: bookCategories.map((bookCategory) => ({
+                label: bookCategory.name,
+                href: `/cat/${bookCategory.slug}`,
             })),
         },
         {

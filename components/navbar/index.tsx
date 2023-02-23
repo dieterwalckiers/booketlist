@@ -4,16 +4,13 @@ import {
 } from '@chakra-ui/icons';
 import {
     Box,
-    Button,
     Collapse,
     Flex,
     IconButton,
-    Stack,
-    Text,
-    useBreakpointValue,
     useColorModeValue,
     useDisclosure,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 
 import { NavItem } from './contract';
 import DesktopNav from './DesktopNav';
@@ -68,7 +65,9 @@ export default function NavBar<Props>({ navItems, logoData }) {
                     justify={{ base: 'center' }}
                     id="navbar-body-items"
                 >
-                    <Logo logoData={logoData} />
+                    <Link href="/">
+                        <Logo logoData={logoData} />
+                    </Link>
                     <Flex
                         display={{ base: 'none', md: 'flex' }}
                         ml={10}
