@@ -15,8 +15,19 @@ const page = {
             of: [
                 { type: "richTextElement" },
                 { type: "imageElement" },
+                { type: "titleElement" },
             ]
-        }
+        },
+        {
+            name: 'slug',
+            type: 'slug',
+            title: 'Slug',
+            options: {
+                source: (doc, { parent }) => parent && parent.title,
+                maxLength: 96
+            },
+            validation: Rule => Rule.required(),
+        },
     ],
     preview: {
         select: {

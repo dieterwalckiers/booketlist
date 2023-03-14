@@ -10,6 +10,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from '@chakra-ui/react';
+import SearchBox from 'components/searchbox';
 import Link from 'next/link';
 
 import { NavItem } from './contract';
@@ -76,6 +77,7 @@ export default function NavBar<Props>({ navItems, logoData }) {
                         alignItems="center"
                     >
                         <DesktopNav navItems={navItems} />
+                        {/* <SearchBox /> */}
                     </Flex>
                 </Flex>
             </Flex>

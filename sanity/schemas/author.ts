@@ -9,6 +9,12 @@ const author = {
             title: 'Name'
         },
         {
+            name: 'info',
+            type: 'array',
+            of: [{ type: 'block' }],
+            title: 'Info'
+        },
+        {
             name: 'slug',
             type: 'slug',
             title: 'Slug',

@@ -1,12 +1,50 @@
-import { Author, Book, BookCategory, Publisher } from "shared/contract";
+import { Book, BookCategory, IAuthor, Page, PageElement, Publisher } from "shared/contract";
 
-export function normalizeBook(book: any): Book {
-    console.log("norm book", book);
+import { getLangName } from "./lang";
+
+export function normalizeBook(book: any, skipNormAuthor = false): Book {
     return {
         ...book,
+        bookCategory: normalizeBookCategory(book.bookCategory),
         slug: book.slug.current,
-        authors: book.authors.map(normalizeAuthor),
+        authors: skipNormAuthor ? book.authors : book.authors.filter(a => !!a).map(a => normalizeAuthor(a, true)),
+        illustrators: skipNormAuthor ? book.illustrators : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         publisher: normalizePublisher(book.publisher),
+        age: parseInt(book.age),
+        availableLanguageRights: book.availableLanguageRights.map(l => ({
+            code: l.toLowerCase(),
+            name: getLangName(l.toLowerCase()),
+        })),
+    };
+}
+
+function normalizePageElement(pageElement: any, imageAssetsMap: any[]): PageElement {
+
+    if (pageElement.value && pageElement.value.asset) {
+        const asset = imageAssetsMap.filter(a => !!a).find(asset => asset._id === pageElement.value.asset._ref)
+        if (asset) {
+            return {
+                ...pageElement,
+                type: pageElement._type,
+                value: {
+                    ...pageElement.value,
+                    asset,
+                }
+            }
+        }
+    }
+
+    return {
+        ...pageElement,
+        type: pageElement._type,
+    }
+}
+
+export function normalizePage(page: any): Page {
+    return {
+        ...page,
+        slug: page.slug.current,
+        elements: page.elements.map(el => normalizePageElement(el, page.imageAssets)),
     };
 }
 
@@ -17,9 +55,10 @@ export function normalizePublisher(publisher: any): Publisher {
     };
 }
 
-export function normalizeAuthor(author: any): Author {
+export function normalizeAuthor<A extends IAuthor>(author: any, skipNormBook = false): A {
     return {
         ...author,
+        ...(skipNormBook ? {} : { books: (author.books || []).map(book => normalizeBook(book, true)) }),
         slug: author.slug.current,
     };
 }

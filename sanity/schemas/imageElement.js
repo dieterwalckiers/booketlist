@@ -1,7 +1,7 @@
 const imageElement = {
   type: "object",
   name: "imageElement",
-  title: "Image element",
+  title: "Afbeelding",
   fields: [
     {
       name: "value",

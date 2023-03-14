@@ -20,7 +20,7 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
             <Stack
                 direction="column"
                 id="layout"
-                width={{ base: "auto", md: "min(65vw, 1600px)" }}
+                width={{ base: "auto", md: "min(70vw, 1300px)" }}
                 margin="auto"
             >
                 <Navbar navItems={navItems} logoData={logoData} />

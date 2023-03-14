@@ -3,7 +3,7 @@ import React from "react"
 const richTextElement = {
   type: "object",
   name: "richTextElement",
-  title: "Tekst element",
+  title: "Tekst",
   fields: [
     {
       name: "value",

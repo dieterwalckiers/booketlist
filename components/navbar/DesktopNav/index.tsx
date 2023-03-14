@@ -31,14 +31,14 @@ const DesktopNav = ({ navItems }) => {
                     display="flex"
                     flexDirection="column"
                     justifyContent="center"
-                    px={{ base: 12 }}
+                    px={12}
                 >
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
                                 className="navbar-body-item-link"
                                 href={navItem.href ?? '#'}
-                                fontSize={'xl'}
+                                fontSize="lg"
                                 fontWeight={300}
                                 color={linkColor}
                                 _hover={{

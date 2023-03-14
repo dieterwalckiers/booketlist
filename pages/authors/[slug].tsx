@@ -1,19 +1,18 @@
-import AuthorDetail from "components/authordetail";
+import AuthorOverview from "components/authoroverview";
 import Layout from "components/layout";
-import { fetchAllAuthorSlugs, fetchAuthor, fetchMenuProps } from "helpers/fetching";
+import { fetchAllAuthorSlugs, fetchAuthorWithBooks, fetchMenuProps } from "helpers/fetching";
 
 export default function AuthorPage({ navItems, settings, author }) {
-
     return (
         <Layout navItems={navItems} settings={settings}>
-            {author && <AuthorDetail author={author} />}
+            {author && <AuthorOverview author={author} />}
         </Layout>
     )
 }
 
 export async function getStaticProps({ params }) {
     const { navItems, settings } = await fetchMenuProps();
-    const author = await fetchAuthor(params.slug);
+    const author = await fetchAuthorWithBooks(params.slug);
     return {
         props: {
             navItems,

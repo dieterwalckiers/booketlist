@@ -1,17 +1,15 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
-import { Book } from "shared/contract";
+import React, { useEffect, useMemo } from "react";
+import { BookFilter, IBook } from "shared/contract";
 
+import { filterBooks } from "../filterpanel/helpers";
 import BookCard from "./bookcard";
 
 interface IProps {
-    books: Book[];
+    books: IBook[];
 }
 
-const BookGallery: React.FC<IProps> = ({ books /*: _books*/ }) => {
-
-    // const books = [..._books, ..._books, ..._books, ..._books, ..._books, ..._books, ..._books, ..._books, ..._books, ..._books, ..._books, ..._books]; // TEMP!
-
+const BookGallery: React.FC<IProps> = ({ books }) => {
     return (
         <Flex
             id={`bookGallery-${books[0].slug}`}

@@ -1,31 +1,30 @@
-import BookOverview from "components/bookoverview";
 import Layout from "components/layout";
-import { fetchAllBookSlugs, fetchBook, fetchMenuProps } from "helpers/fetching";
+import Page from "components/page";
+import { fetchAllPageSlugs, fetchMenuProps, fetchPage } from "helpers/fetching";
 
-export default function BookPage({ navItems, settings, book }) {
-
+export default function PagePage({ navItems, settings, page }) {
     return (
         <Layout navItems={navItems} settings={settings}>
-            {book && <BookOverview book={book} />}
+            {page && <Page page={page} />}
         </Layout>
     )
 }
 
 export async function getStaticProps({ params }) {
     const { navItems, settings } = await fetchMenuProps();
-    const book = await fetchBook(params.slug);
+    const page = await fetchPage(params.slug);
     return {
         props: {
             navItems,
             settings,
-            book,
+            page,
         }
     };
 }
 
 export async function getStaticPaths() {
-    const allBookSlugs = await fetchAllBookSlugs();
-    const paths = allBookSlugs.map((slug) => {
+    const allPageSlugs = await fetchAllPageSlugs();
+    const paths = allPageSlugs.map((slug) => {
         return {
             params: {
                 slug,

@@ -19,6 +19,11 @@ const book = {
             of: [{ type: "reference", to: { type: "author" } }],
         },
         {
+            name: 'illustrators',
+            type: "array",
+            of: [{ type: "reference", to: { type: "author" } }],
+        },
+        {
             name: 'publisher',
             type: "reference", to: { type: "publisher" },
         },
@@ -32,6 +37,16 @@ const book = {
             name: 'cover',
             type: 'image',
             title: 'Cover',
+        },
+        {
+            name: "age",
+            type: "number",
+            title: "Age",
+        },
+        {
+            name: 'languageRights',
+            type: "array",
+            of: [{ type: "languageRight" }],
         },
         {
             name: 'slug',

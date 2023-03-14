@@ -5,7 +5,7 @@ export default function IndexPage({ navItems, settings }) {
 
     return (
         <Layout navItems={navItems} settings={settings}>
-            Home joepie
+            Booketlist
         </Layout>
     )
 }

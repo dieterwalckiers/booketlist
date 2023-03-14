@@ -1,4 +1,6 @@
 import { Box, Heading } from '@chakra-ui/react';
+import { PortableText } from '@portabletext/react';
+import H1 from 'components/headings/h1';
 import React from "react";
 import { Author } from 'shared/contract';
 
@@ -9,10 +11,9 @@ interface IProps {
 const AuthorDetail: React.FC<IProps> = ({ author }) => {
 
     return (
-        <Box
-            id="author-detail"
-        >
-            <Heading as="h1" fontSize="2xl" mb={4}>{author.name}</Heading>
+        <Box id="author-detail">
+            <H1>{author.name}</H1>
+            <PortableText value={author.info} />
         </Box>
     )
 }

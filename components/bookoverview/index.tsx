@@ -5,20 +5,18 @@ import React from "react";
 import { Book } from "shared/contract";
 
 import { client } from "../../sanity/lib/client";
-import BookInfo from './bookinfo';
+import BookDetail from './bookdetail';
 
 interface IProps {
     book: Book;
 }
 
-const BookDetail: React.FC<IProps> = ({ book }) => {
+const BookOverview: React.FC<IProps> = ({ book }) => {
 
     const bookCoverImageProps: Record<string, any> = useNextSanityImage(
         client,
         book.cover,
     );
-
-    console.log("book", book)
 
     return (
         <Flex
@@ -44,10 +42,10 @@ const BookDetail: React.FC<IProps> = ({ book }) => {
                 justifyContent="center"
                 ml={{ base: 0, md: 12 }}
             >
-                <BookInfo book={book} />
+                <BookDetail book={book} />
             </Flex>
         </Flex>
     )
 }
 
-export default BookDetail
+export default BookOverview

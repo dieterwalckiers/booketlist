@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from 'next/link'
 import { useNextSanityImage } from 'next-sanity-image';
 import React from "react";
-import { Book } from "shared/contract";
+import { IBook } from "shared/contract";
 
-import { client } from "../../../sanity/lib/client";
+import { client } from "../../../../sanity/lib/client";
 
 interface IProps {
-    book: Book;
+    book: IBook;
 }
 
 const BookCard: React.FC<IProps> = ({ book }) => {
@@ -21,7 +21,7 @@ const BookCard: React.FC<IProps> = ({ book }) => {
     return (
         <Link href={`/books/${book.slug}`}>
             <Flex
-                width={{ base: "100%", md: "300px" }}
+                width={{ base: "100%", md: "250px" }}
                 direction="column"
                 justifyContent="center"
                 alignItems="center"

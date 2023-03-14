@@ -1,5 +1,5 @@
 
-import { Author, Book, BookCategory, Publisher } from "shared/contract";
+import { Author, Book, BookCategory, Page, Publisher } from "shared/contract";
 
 import { NavItem } from "./contract";
 
@@ -7,11 +7,12 @@ export function buildNavItems(
     bookCategories: BookCategory[],
     publishers: Publisher[],
     authors: Author[],
+    pages: Page[],
 ): Array<NavItem> {
-    console.log("building nav items with bookCategories", bookCategories);
     return [
         {
             label: "Books +",
+            href: "/books",
             children: bookCategories.map((bookCategory) => ({
                 label: bookCategory.name,
                 href: `/cat/${bookCategory.slug}`,
@@ -31,9 +32,9 @@ export function buildNavItems(
                 href: `/authors/${author.slug}`,
             })),
         },
-        {
-            label: "About",
-            href: "/about",
-        },
+        ...pages.map(page => ({
+            label: page.title,
+            href: `/page/${page.slug}`,
+        })),
     ]
 }
