@@ -26,14 +26,14 @@ function BooksOverview(props: Props) {
 
     return (
         <Flex direction={{ base: "column", md: "row" }}>
-            <Box>
-                <FilterPanel books={filteredBooks as Book[]} bookFilter={bookFilter} onUpdateFilter={setBookFilter} />
-            </Box>
             {filterable && (
-                <Box flexGrow={1}>
-                    <BookGallery books={filteredBooks} />
+                <Box>
+                    <FilterPanel books={filteredBooks as Book[]} bookFilter={bookFilter} onUpdateFilter={setBookFilter} />
                 </Box>
             )}
+            <Box flexGrow={1}>
+                <BookGallery books={filteredBooks} />
+            </Box>
         </Flex>
     )
 }

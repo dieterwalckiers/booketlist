@@ -65,6 +65,7 @@ export async function fetchBook(slug: string): Promise<Book> {
         authors[]->{name,slug},
         illustrators[]->{name,slug},
         publisher->{name,pageContent,slug},
+        'availableLanguageRights': languageRights[isSold != true].languageCode,
         cover {
           asset->{
             ...,
@@ -104,6 +105,7 @@ export async function fetchBooksForCategorySlug(categorySlug: string): Promise<B
         illustrators[]->{name,slug},
         publisher->{name,pageContent,slug},
         bookCategory->{name,slug},
+        'availableLanguageRights': languageRights[isSold != true].languageCode,
         cover {
           asset->{
             ...,
@@ -125,7 +127,6 @@ export async function fetchAuthorWithBooks(slug: string): Promise<AuthorWithBook
         ...,
         "books": *[_type == "book" && (_ref in authors[]->author._id || _ref in illustrators[]->author._id )]{
           ...,
-          publisher->{name,pageContent,slug},
           bookCategory->{name,slug},
           cover {
             asset->{

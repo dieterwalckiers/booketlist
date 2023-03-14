@@ -9,12 +9,12 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
         slug: book.slug.current,
         authors: skipNormAuthor ? book.authors : book.authors.filter(a => !!a).map(a => normalizeAuthor(a, true)),
         illustrators: skipNormAuthor ? book.illustrators : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
-        publisher: normalizePublisher(book.publisher),
-        age: parseInt(book.age),
-        availableLanguageRights: book.availableLanguageRights.map(l => ({
+        publisher: skipNormAuthor ? book.publisher : normalizePublisher(book.publisher),
+        availableLanguageRights: skipNormAuthor ? (book.availableLanguageRights || []) : book.availableLanguageRights.map(l => ({
             code: l.toLowerCase(),
             name: getLangName(l.toLowerCase()),
         })),
+        age: parseInt(book.age),
     };
 }
 
