@@ -32,7 +32,7 @@ export function buildNavItems(
                 href: `/authors/${author.slug}`,
             })),
         },
-        ...pages.map(page => ({
+        ...pages.filter(p => !(p.hideInMenu)).map(page => ({
             label: page.title,
             href: `/page/${page.slug}`,
         })),

@@ -71,4 +71,5 @@ export interface Page {
     slug: string;
     title: string;
     elements: PageElement[];
+    hideInMenu?: boolean;
 }

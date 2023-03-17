@@ -19,6 +19,11 @@ const page = {
             ]
         },
         {
+            name: "hideInMenu",
+            type: "boolean",
+            title: "Hide in main menu",
+        },
+        {
             name: 'slug',
             type: 'slug',
             title: 'Slug',

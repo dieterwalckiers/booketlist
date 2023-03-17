@@ -125,7 +125,7 @@ export async function fetchAuthorWithBooks(slug: string): Promise<AuthorWithBook
   const authorRaw = await authClient.fetch(`
       *[_type == "author" && slug.current == $slug][0] {
         ...,
-        "books": *[_type == "book" && (_ref in authors[]->author._id || _ref in illustrators[]->author._id )]{
+        "books": *[_type == "book" && references(^._id)] {
           ...,
           bookCategory->{name,slug},
           cover {
