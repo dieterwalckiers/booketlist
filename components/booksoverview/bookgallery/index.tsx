@@ -12,12 +12,12 @@ interface IProps {
 const BookGallery: React.FC<IProps> = ({ books }) => {
     return (
         <Flex
-            id={`bookGallery-${books[0].slug}`}
+            id={`bookGallery-${books.length ? books[0].slug : ""}`}
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
             justifyContent="center"
         >
-            {books.map((book, i) => (
+            {(books || []).map((book, i) => (
                 <BookCard key={`book${i}${book.slug}`} book={book} />
             ))}
         </Flex>
