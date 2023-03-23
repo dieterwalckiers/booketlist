@@ -1,6 +1,6 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useNextSanityImage } from 'next-sanity-image';
 import React from "react";
 import { IBook } from "shared/contract";
@@ -19,7 +19,10 @@ const BookCard: React.FC<IProps> = ({ book }) => {
     );
 
     return (
-        <Link href={`/books/${book.slug}`}>
+        <Link
+            href={`/books/${book.slug}`}
+            as={NextLink}
+        >
             <Flex
                 width={{ base: "100%", md: "250px" }}
                 direction="column"

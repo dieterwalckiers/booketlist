@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useNextSanityImage } from "next-sanity-image";
 import * as React from "react";
 
-import { client } from "../../../../sanity/lib/client";
-import { PageElementImage } from "../../../../shared/contract";
+import { client } from "../../../../../sanity/lib/client";
+import { PageElementImage } from "../../../../../shared/contract";
 
 interface IProps {
     element: PageElementImage;

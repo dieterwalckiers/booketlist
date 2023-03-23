@@ -9,10 +9,14 @@ const author = {
             title: 'Name'
         },
         {
-            name: 'info',
-            type: 'array',
-            of: [{ type: 'block' }],
-            title: 'Info'
+            name: "elements",
+            title: "Elements",
+            type: "array",
+            of: [
+                { type: "richTextElement" },
+                { type: "imageElement" },
+                { type: "titleElement" },
+            ]
         },
         {
             name: 'slug',
@@ -24,6 +28,11 @@ const author = {
             },
             validation: Rule => Rule.required(),
         },
+        {
+            name: 'showInMenu',
+            type: 'boolean',
+            title: 'Show in author menu',
+        }
     ]
 }
 export default author

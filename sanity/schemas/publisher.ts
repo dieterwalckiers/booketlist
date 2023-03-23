@@ -9,10 +9,14 @@ const book = {
             title: 'Name'
         },
         {
-            name: 'pageContent',
-            type: 'array',
-            of: [{ type: 'block' }],
-            title: 'Page content'
+            name: "elements",
+            title: "Elements",
+            type: "array",
+            of: [
+                { type: "richTextElement" },
+                { type: "imageElement" },
+                { type: "titleElement" },
+            ]
         },
         {
             name: 'slug',

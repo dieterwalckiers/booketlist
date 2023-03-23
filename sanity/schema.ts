@@ -3,6 +3,8 @@ import { SchemaTypeDefinition } from "sanity";
 import author from "./schemas/author";
 import book from "./schemas/book";
 import bookCategory from "./schemas/bookCategory";
+import highlightedBooksElement from "./schemas/highlightedBooksElement";
+import home from "./schemas/home";
 import imageElement from "./schemas/imageElement";
 import languageRight from "./schemas/languageRight";
 import page from "./schemas/page";
@@ -13,6 +15,7 @@ import titleElement from "./schemas/titleElement";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
+    home,
     settings,
     book,
     bookCategory,
@@ -22,6 +25,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     richTextElement,
     imageElement,
     titleElement,
+    highlightedBooksElement,
     languageRight,
   ],
 }

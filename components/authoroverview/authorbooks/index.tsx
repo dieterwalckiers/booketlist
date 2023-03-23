@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const AuthorBooks: React.FC<IProps> = ({ author }) => {
-    console.log("rnd", author)
     return author.books && (
         <Box
             id="author-books"

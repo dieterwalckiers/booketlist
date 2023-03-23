@@ -7,11 +7,12 @@ import {
     Collapse,
     Flex,
     IconButton,
+    Link,
     useColorModeValue,
     useDisclosure,
 } from '@chakra-ui/react';
 import SearchBox from 'components/searchbox';
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 import { NavItem } from './contract';
 import DesktopNav from './DesktopNav';
@@ -66,7 +67,10 @@ export default function NavBar<Props>({ navItems, logoData }) {
                     justify={{ base: 'center' }}
                     id="navbar-body-items"
                 >
-                    <Link href="/">
+                    <Link
+                        href="/"
+                        as={NextLink}
+                    >
                         <Logo logoData={logoData} />
                     </Link>
                     <Flex

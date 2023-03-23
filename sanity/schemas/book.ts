@@ -38,6 +38,12 @@ const book = {
             type: 'image',
             title: 'Cover',
         },
+        // {
+        //     name: 'additionalImages',
+        //     type: 'array',
+        //     of: [{ type: 'image' }],
+        //     title: 'Additional images',
+        // },
         {
             name: "age",
             type: "number",
@@ -47,6 +53,11 @@ const book = {
             name: 'languageRights',
             type: "array",
             of: [{ type: "languageRight" }],
+        },
+        {
+            name: 'isHighlighted',
+            type: "boolean",
+            title: "Highlighted",
         },
         {
             name: 'slug',

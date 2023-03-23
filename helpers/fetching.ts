@@ -1,9 +1,9 @@
 import { NavItem } from "components/navbar/contract";
 import { buildNavItems } from "components/navbar/helpers";
-import { Author, AuthorWithBooks, Book, Page, Publisher } from "shared/contract";
+import { Author, AuthorWithBooks, Book, Home, Page, Publisher } from "shared/contract";
 
 import { client } from "../sanity/lib/client";
-import { normalizeAuthor, normalizeBook, normalizeBookCategory, normalizePage, normalizePublisher } from "./normalizing";
+import { filterOutDrafts, normalizeAuthor, normalizeBook, normalizeBookCategory, normalizeHome, normalizePage, normalizePublisher } from "./normalizing";
 
 export async function fetchAllBooks(): Promise<Book[]> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN });
@@ -12,7 +12,15 @@ export async function fetchAllBooks(): Promise<Book[]> {
         ...,
         authors[]->{name,slug},
         illustrators[]->{name,slug},
-        publisher->{name,pageContent,slug},
+        publisher->{
+          name,
+          elements,
+          slug,
+          "imageAssets": elements[].value.asset->{
+            ...,
+            metadata
+          }
+        },
         bookCategory->{name,slug},
         'availableLanguageRights': languageRights[isSold != true].languageCode,
         cover {
@@ -23,7 +31,7 @@ export async function fetchAllBooks(): Promise<Book[]> {
         }
       }
     `);
-  return booksRaw.map(book => normalizeBook(book));
+  return booksRaw.filter(filterOutDrafts).map(book => normalizeBook(book));
 }
 
 export async function fetchAllBookSlugs() {
@@ -56,6 +64,18 @@ export async function fetchAllBookCategorySlugs() {
   return bookCategoriesRaw.map(cat => cat.slug.current);
 }
 
+export async function fetchHome(): Promise<Home> {
+  const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
+  const homeRaw = await authClient.fetch(`*[_type == "home"][0] {
+    ...,
+    "imageAssets": elements[].value.asset->{
+      ...,
+      metadata
+    }
+  }`);
+  return normalizeHome(homeRaw);
+}
+
 export async function fetchBook(slug: string): Promise<Book> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const bookRaw = await authClient.fetch(`
@@ -64,7 +84,14 @@ export async function fetchBook(slug: string): Promise<Book> {
         bookCategory->{name,slug},
         authors[]->{name,slug},
         illustrators[]->{name,slug},
-        publisher->{name,pageContent,slug},
+        publisher->{
+          name,
+          slug,
+          "imageAssets": elements[].value.asset->{
+            ...,
+            metadata
+          }
+        },
         'availableLanguageRights': languageRights[isSold != true].languageCode,
         cover {
           asset->{
@@ -103,7 +130,14 @@ export async function fetchBooksForCategorySlug(categorySlug: string): Promise<B
         ...,
         authors[]->{name,slug},
         illustrators[]->{name,slug},
-        publisher->{name,pageContent,slug},
+        publisher->{
+          name,
+          slug,
+          "imageAssets": elements[].value.asset->{
+            ...,
+            metadata
+          }
+        },
         bookCategory->{name,slug},
         'availableLanguageRights': languageRights[isSold != true].languageCode,
         cover {
@@ -125,6 +159,10 @@ export async function fetchAuthorWithBooks(slug: string): Promise<AuthorWithBook
   const authorRaw = await authClient.fetch(`
       *[_type == "author" && slug.current == $slug][0] {
         ...,
+        "imageAssets": elements[].value.asset->{
+          ...,
+          metadata
+        },
         "books": *[_type == "book" && references(^._id)] {
           ...,
           bookCategory->{name,slug},
@@ -146,6 +184,10 @@ export async function fetchPublisher(slug: string): Promise<Publisher> {
   const publisherRaw = await authClient.fetch(`
       *[_type == "publisher" && slug.current == $slug][0] {
         ...,
+        "imageAssets": elements[].value.asset->{
+          ...,
+          metadata,
+        }
       }
     `, { slug });
   return normalizePublisher(publisherRaw);
@@ -159,6 +201,23 @@ export async function fetchBookCategory(slug: string) {
       }
     `, { slug });
   return normalizeBookCategory(bookCategoryRaw);
+}
+
+export async function fetchHighlightedBooks(): Promise<Book[]> {
+  const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
+  const booksRaw = await authClient.fetch(`
+      *[_type == "book" && isHighlighted == true] {
+        ...,
+          bookCategory->{name,slug},
+          cover {
+            asset->{
+              ...,
+              metadata
+            }
+          }
+      }
+    `);
+  return booksRaw.map(book => normalizeBook(book, true));
 }
 
 export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings: any }> {
@@ -179,9 +238,9 @@ export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings:
     `);
 
   const publishersRaw = await authClient.fetch(`*[_type == "publisher"]`);
-  const publishers = publishersRaw.map(publisher => normalizePublisher(publisher));
+  const publishers = publishersRaw.filter(filterOutDrafts).map(publisher => normalizePublisher(publisher));
   const authorsRaw = await authClient.fetch(`*[_type == "author"]`);
-  const authors = authorsRaw.filter(noDraft).map(author => normalizeAuthor<Author>(author));
+  const authors = authorsRaw.filter(filterOutDrafts).map(author => normalizeAuthor<Author>(author));
   const pagesRaw = await authClient.fetch(`*[_type == "page"] {
         ...,
         "imageAssets": elements[].value.asset->{
@@ -196,8 +255,4 @@ export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings:
     navItems,
     settings,
   }
-}
-
-export function noDraft<E>(doc: { _id: string }): boolean {
-  return !(doc._id.startsWith("drafts"))
 }

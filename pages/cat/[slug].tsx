@@ -10,7 +10,7 @@ export default function BookCategoryPage({ navItems, settings, books, bookCatego
         <Layout navItems={navItems} settings={settings}>
             <Box>
                 <H1>{bookCategory.name}</H1>
-                {books && <BooksOverview books={books} />}
+                {books && <BooksOverview books={books} filterable={true} />}
             </Box>
         </Layout>
     )

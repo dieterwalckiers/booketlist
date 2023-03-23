@@ -7,6 +7,7 @@ import {
     Stack,
     useColorModeValue,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 import DesktopSubNav from './DesktopSubNav';
 
@@ -38,6 +39,7 @@ const DesktopNav = ({ navItems }) => {
                             <Link
                                 className="navbar-body-item-link"
                                 href={navItem.href ?? '#'}
+                                as={NextLink}
                                 fontSize="lg"
                                 fontWeight={300}
                                 color={linkColor}

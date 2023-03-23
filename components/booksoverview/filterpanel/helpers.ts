@@ -81,6 +81,16 @@ export function filterBooks(books: Book[], bookFilter: BookFilter) {
                 return false;
             }
         }
+        if (bookFilter.ageFrom !== undefined) {
+            if (book.age < bookFilter.ageFrom) {
+                return false;
+            }
+        }
+        if (bookFilter.ageTo !== undefined) {
+            if (book.age > bookFilter.ageTo) {
+                return false;
+            }
+        }
         return true;
     });
 }

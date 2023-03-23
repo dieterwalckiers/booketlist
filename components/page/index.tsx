@@ -1,7 +1,5 @@
-import { Box, Flex } from "@chakra-ui/react";
-
 import { Page } from "../../shared/contract";
-import PageElement from "./pageElement";
+import PageElements from "./pageElements";
 
 interface Props {
     page: Page;
@@ -9,9 +7,7 @@ interface Props {
 
 const Page: React.FC<Props> = ({ page }) => {
     return (
-        <Flex direction="column" alignItems="center">
-            {(page.elements || []).map((e, i) => <PageElement pageElement={e} key={`page${page.title}El${i}`} />)}
-        </Flex>
+        <PageElements elements={page.elements || []} pageTitle={page.title} />
     );
 }
 

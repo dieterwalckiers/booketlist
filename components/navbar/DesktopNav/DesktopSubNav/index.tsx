@@ -8,9 +8,9 @@ import {
     Link,
     Stack,
     Text,
-    useColorModeValue,
 } from '@chakra-ui/react';
 import { NavItem } from 'components/navbar/contract';
+import NextLink from 'next/link';
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     return (
@@ -20,6 +20,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             display={'block'}
             p={2}
             rounded={'md'}
+            as={NextLink}
         //_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
         // _hover={{ fontWeight: 'bold' }}
         >

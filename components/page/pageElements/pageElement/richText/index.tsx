@@ -1,7 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import * as React from "react";
 
-import { PageElementRichText } from "../../../../shared/contract";
+import { PageElementRichText } from "../../../../../shared/contract";
 
 interface IProps {
     element: PageElementRichText;

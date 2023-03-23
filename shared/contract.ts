@@ -1,3 +1,7 @@
+export interface Home {
+    elements: PageElement[];
+}
+
 export interface IBook {
     title: string;
     description: any;
@@ -23,6 +27,8 @@ export type BookFilter = {
     illustrators?: string[]; // slugs
     publishers?: string[]; // slugs
     avLangRights?: string[]; // codes
+    ageFrom?: number;
+    ageTo?: number;
 }
 export interface BookCategory {
     name: string;
@@ -32,20 +38,21 @@ export interface BookCategory {
 
 export interface Publisher {
     name: string;
-    pageContent: any;
+    elements: PageElement[];
     slug: string;
 }
 
 export interface IAuthor {
     name: string;
     slug: string;
-    info: any;
+    elements: PageElement[];
+    showInMenu?: boolean;
 }
 
 export type Author = IAuthor;
 export type AuthorWithBooks = IAuthor & { books: BookWithAuthorRef[] };
 
-export type PageElementType = "richTextElement" | "imageElement" | "titleElement";
+export type PageElementType = "richTextElement" | "imageElement" | "titleElement" | "highlightedBooksElement";
 
 export interface PageElement {
     type: PageElementType,
@@ -66,6 +73,11 @@ export interface PageElementImage extends PageElement {
 export interface PageElementTitle extends PageElement {
     value: string;
 }
+
+export interface PageElementHighlightedBooks extends PageElement {
+    title: string;
+}
+
 export interface Page {
     id: string;
     slug: string;

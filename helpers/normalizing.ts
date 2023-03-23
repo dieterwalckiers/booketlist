@@ -1,4 +1,4 @@
-import { Book, BookCategory, IAuthor, Page, PageElement, Publisher } from "shared/contract";
+import { Book, BookCategory, Home, IAuthor, Page, PageElement, Publisher } from "shared/contract";
 
 import { getLangName } from "./lang";
 
@@ -18,9 +18,9 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
     };
 }
 
-function normalizePageElement(pageElement: any, imageAssetsMap: any[]): PageElement {
+function normalizePageElement(pageElement: any, imageAssetsMap?: any[]): PageElement {
 
-    if (pageElement.value && pageElement.value.asset) {
+    if (pageElement.value && pageElement.value.asset && imageAssetsMap) {
         const asset = imageAssetsMap.filter(a => !!a).find(asset => asset._id === pageElement.value.asset._ref)
         if (asset) {
             return {
@@ -48,10 +48,18 @@ export function normalizePage(page: any): Page {
     };
 }
 
+export function normalizeHome(home: any): Home {
+    return {
+        ...home,
+        elements: home.elements.map(el => normalizePageElement(el, home.imageAssets)),
+    };
+}
+
 export function normalizePublisher(publisher: any): Publisher {
     return {
         ...publisher,
         slug: publisher.slug.current,
+        elements: (publisher.elements || []).map(el => normalizePageElement(el, publisher.imageAssets)),
     };
 }
 
@@ -59,6 +67,7 @@ export function normalizeAuthor<A extends IAuthor>(author: any, skipNormBook = f
     return {
         ...author,
         ...(skipNormBook ? {} : { books: (author.books || []).map(book => normalizeBook(book, true)) }),
+        elements: (author.elements || []).map(el => normalizePageElement(el, author.imageAssets)),
         slug: author.slug.current,
     };
 }
@@ -68,4 +77,8 @@ export function normalizeBookCategory(bookCategory: any): BookCategory {
         ...bookCategory,
         slug: bookCategory.slug.current,
     };
+}
+
+export function filterOutDrafts(entity: { _id: string }): boolean {
+    return entity._id.startsWith("drafts.") ? false : true;
 }

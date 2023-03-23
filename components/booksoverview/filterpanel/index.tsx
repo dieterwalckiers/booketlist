@@ -4,6 +4,7 @@ import { Author, Book, BookCategory, BookFilter, IBook, Language, Publisher } fr
 
 import FilterAutocomplete, { AcItem } from "./filterautocomplete";
 import FilterCheckboxList, { Checkable } from "./filtercheckboxlist";
+import FilterFromToAge from "./filterfromtoage";
 import FilterPanelSection from "./filterpanelsection";
 import { getUniqueAuthors, getUniqueAvailableLanguageRights, getUniqueCategories, getUniqueIllustrators, getUniquePublishers } from "./helpers";
 
@@ -63,6 +64,14 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
         })
     }, [bookFilter, onUpdateFilter]);
 
+    const onUpdateFromToAge = useCallback((from: number, to: number) => {
+        onUpdateFilter({
+            ...bookFilter,
+            ageFrom: from,
+            ageTo: to,
+        })
+    }, [bookFilter, onUpdateFilter]);
+
     const onUpdateAuthors = useCallback((slugs: string[]) => {
         onUpdateFilter({
             ...bookFilter,
@@ -112,6 +121,13 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                     selectedValues={(bookFilter.authors) || []}
                     onUpdateSelectedValues={onUpdateAuthors}
                     placeholder="Type or select an author"
+                />
+            </FilterPanelSection>
+            <FilterPanelSection title="Age">
+                <FilterFromToAge
+                    from={bookFilter.ageFrom}
+                    to={bookFilter.ageTo}
+                    onChange={onUpdateFromToAge}
                 />
             </FilterPanelSection>
             <FilterPanelSection title="Illustrators">

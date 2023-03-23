@@ -2,7 +2,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import H2 from "components/headings/h2";
 import * as React from "react";
 
-import { PageElementTitle } from "../../../../shared/contract";
+import { PageElementTitle } from "../../../../../shared/contract";
 
 interface IProps {
     element: PageElementTitle;
@@ -19,4 +19,4 @@ const PageElementTitle: React.FC<IProps> = ({ element }) => {
     );
 }
 
-export default PageElementTitle
+export default PageElementTitle;

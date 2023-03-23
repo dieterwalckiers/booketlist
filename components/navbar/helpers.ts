@@ -27,7 +27,7 @@ export function buildNavItems(
         },
         {
             label: "Authors & Illustrators +",
-            children: authors.map((author) => ({
+            children: authors.filter(a => a.showInMenu).map((author) => ({
                 label: author.name,
                 href: `/authors/${author.slug}`,
             })),

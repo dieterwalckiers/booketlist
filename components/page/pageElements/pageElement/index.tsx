@@ -1,11 +1,14 @@
+import { omit } from "ramda";
 import * as React from "react";
 
 import {
     PageElement as IPageElement,
+    PageElementHighlightedBooks as IPageElementHighlightedBooks,
     PageElementImage as IPageElementImage,
     PageElementRichText as IPageElementRichText,
     PageElementTitle as IPageElementTitle,
-} from "../../../shared/contract";
+} from "../../../../shared/contract";
+import PageElementHighlightedBooks from "./highlightedBooks";
 import PageElementImage from "./image";
 import PageElementRichText from "./richText";
 import PageElementTitle from "./title";
@@ -15,7 +18,9 @@ interface IProps {
     pageElement: IPageElement;
 }
 
-const PageElement: React.FC<IProps> = ({ pageElement }) => {
+const PageElement: React.FC<IProps> = (props) => {
+    const { pageElement } = props;
+    const extraProps = omit(["pageElement"], props);
 
     const renderEl = () => {
         switch (pageElement.type) {
@@ -25,6 +30,8 @@ const PageElement: React.FC<IProps> = ({ pageElement }) => {
                 return <PageElementImage element={pageElement as IPageElementImage} />
             case "titleElement":
                 return <PageElementTitle element={pageElement as IPageElementTitle} />;
+            case "highlightedBooksElement":
+                return <PageElementHighlightedBooks element={pageElement as IPageElementHighlightedBooks} {...extraProps} />;
             default:
                 return null;
         }

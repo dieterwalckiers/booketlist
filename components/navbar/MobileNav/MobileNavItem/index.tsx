@@ -8,8 +8,9 @@ import {
     Text,
     useColorModeValue,
     useDisclosure,
-} from  "@chakra-ui/react";
+} from "@chakra-ui/react";
 import { NavItem } from "components/navbar/contract";
+import NextLink from "next/link";
 
 const MobileNavItem = ({ label, children, href }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure();
@@ -51,7 +52,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     align={'start'}>
                     {children &&
                         children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href}>
+                            <Link key={child.label} py={2} href={child.href} as={NextLink}>
                                 {child.label}
                             </Link>
                         ))}
