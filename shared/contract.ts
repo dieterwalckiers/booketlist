@@ -13,7 +13,14 @@ export interface IBook {
 }
 
 
-export type Book = IBook & { authors: Author[], illustrators: Author[], publisher: Publisher, availableLanguageRights: Language[] };
+export type Book = IBook & {
+    authors: Author[],
+    illustrators: Author[],
+    publisher: Publisher,
+    availableLanguageRights: Language[],
+    additionalImages: any[],
+};
+
 export type BookWithAuthorRef = IBook & { authors: any };
 
 export type Language = {

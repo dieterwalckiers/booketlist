@@ -38,12 +38,12 @@ const book = {
             type: 'image',
             title: 'Cover',
         },
-        // {
-        //     name: 'additionalImages',
-        //     type: 'array',
-        //     of: [{ type: 'image' }],
-        //     title: 'Additional images',
-        // },
+        {
+            name: 'additionalImages',
+            type: 'array',
+            of: [{ type: 'image' }],
+            title: 'Additional images',
+        },
         {
             name: "age",
             type: "number",

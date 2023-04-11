@@ -1,22 +1,15 @@
 import { Box, Flex } from '@chakra-ui/react';
-import Image from 'next/image';
-import { useNextSanityImage } from 'next-sanity-image';
 import React from "react";
 import { Book } from "shared/contract";
 
-import { client } from "../../sanity/lib/client";
 import BookDetail from './bookdetail';
+import BookImages from './bookimages/BookImages';
 
 interface IProps {
     book: Book;
 }
 
 const BookOverview: React.FC<IProps> = ({ book }) => {
-
-    const bookCoverImageProps: Record<string, any> = useNextSanityImage(
-        client,
-        book.cover,
-    );
 
     return (
         <Flex
@@ -26,15 +19,7 @@ const BookOverview: React.FC<IProps> = ({ book }) => {
             <Box
                 width={{ base: "100%", md: "50%" }}
             >
-                <Image
-                    {...bookCoverImageProps as any}
-                    style={{ width: "100%", height: 'auto' }}
-                    sizes="(max-width: 48em) 100vw,
-                        33vw"
-                    placeholder="blur"
-                    blurDataURL={book.cover.asset.metadata.lqip}
-                    alt={`Cover for ${book.title}`}
-                />
+                <BookImages book={book} />
             </Box>
             <Flex
                 maxWidth={{ base: "auto", md: "50%" }}

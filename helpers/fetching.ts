@@ -98,10 +98,17 @@ export async function fetchBook(slug: string): Promise<Book> {
             ...,
             metadata
           }
+        },
+        additionalImages[]{
+          asset->{
+            ...,
+            metadata
+          }
         }
       }
     `, { slug });
-  return normalizeBook(bookRaw);
+  const rs = normalizeBook(bookRaw);
+  return rs;
 }
 
 export async function fetchPage(slug: string): Promise<Page> {
@@ -217,7 +224,7 @@ export async function fetchHighlightedBooks(): Promise<Book[]> {
           }
       }
     `);
-  return booksRaw.map(book => normalizeBook(book, true));
+  return booksRaw.filter(filterOutDrafts).map(book => normalizeBook(book, true));
 }
 
 export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings: any }> {
