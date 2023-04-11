@@ -4,6 +4,7 @@ import { NavItem } from "components/navbar/contract";
 import React, { useMemo } from "react";
 
 import { client } from "../../sanity/lib/client";
+import theme from "../../theme";
 
 interface Props {
     navItems: NavItem[];
@@ -16,7 +17,7 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
     const logoData = useMemo(() => settings?.logo, [settings])
 
     return (
-        <ChakraBaseProvider>
+        <ChakraBaseProvider theme={theme}>
             <Stack
                 direction="column"
                 id="layout"
