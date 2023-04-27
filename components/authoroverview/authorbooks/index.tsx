@@ -13,8 +13,10 @@ const AuthorBooks: React.FC<IProps> = ({ author }) => {
         <Box
             id="author-books"
         >
-            <H2>Books by {author.name}</H2>
-            <BooksOverview books={author.books} />
+            <BooksOverview
+                books={author.books}
+                title={`Books by ${author.name}`}
+            />
         </Box>
     )
 }

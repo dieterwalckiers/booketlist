@@ -3,16 +3,23 @@ import BooksOverview from "components/booksoverview";
 import H1 from "components/headings/h1";
 import Layout from "components/layout";
 import { fetchAllBookCategorySlugs, fetchBookCategory, fetchBooksForCategorySlug, fetchMenuProps } from "helpers/fetching";
+import Head from "next/head";
 
 export default function BookCategoryPage({ navItems, settings, books, bookCategory }) {
 
     return (
-        <Layout navItems={navItems} settings={settings}>
-            <Box>
-                <H1>{bookCategory.name}</H1>
-                {books && <BooksOverview books={books} filterable={true} />}
-            </Box>
-        </Layout>
+        <>
+            <Head>
+                <title>{bookCategory.name} | Booketlist Agency</title>
+            </Head>
+            <Layout navItems={navItems} settings={settings}>
+                <Box>
+                    <H1>{bookCategory.name}</H1>
+                    {books && <BooksOverview books={books} filterable={true} />}
+                </Box>
+            </Layout>
+        </>
+
     )
 }
 

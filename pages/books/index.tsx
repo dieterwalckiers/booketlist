@@ -1,11 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Button, Flex, Hide, Link, useBreakpoint, useBreakpointValue, useMediaQuery } from "@chakra-ui/react";
 import BooksOverview from "components/booksoverview";
 import H1 from "components/headings/h1";
-import H2 from "components/headings/h2";
 import Layout from "components/layout";
 import { NavItem } from "components/navbar/contract";
 import { fetchAllBooks, fetchMenuProps } from "helpers/fetching";
-import React from "react";
+import Head from "next/head";
+import React, { useEffect, useState } from "react";
 import { Book } from "shared/contract";
 
 interface Props {
@@ -27,13 +27,20 @@ export async function getStaticProps({ params }) {
 }
 
 const Books: React.FC<Props> = ({ books, navItems, settings }) => {
+
     return (
-        <Layout navItems={navItems} settings={settings}>
-            <Box>
-                <H1>All books</H1>
-                <BooksOverview books={books} filterable={true} />
-            </Box>
-        </Layout>
+        <>
+            <Head>
+                <title>Books | Booketlist Agency</title>
+            </Head>
+            <Layout navItems={navItems} settings={settings}>
+                <BooksOverview
+                    books={books}
+                    filterable={true}
+                />
+            </Layout>
+        </>
+
     )
 }
 

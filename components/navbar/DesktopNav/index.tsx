@@ -50,6 +50,7 @@ const DesktopNav = ({ navItems }) => {
                                 textAlign={{ base: "inherit", md: "center" }}
                             >
                                 {navItem.label}
+                                {(navItem.children || []).length ? (<span> +</span>) : null}
                             </Link>
                         </PopoverTrigger>
 

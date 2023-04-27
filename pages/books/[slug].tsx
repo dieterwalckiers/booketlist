@@ -1,13 +1,20 @@
 import BookOverview from "components/bookoverview";
 import Layout from "components/layout";
 import { fetchAllBookSlugs, fetchBook, fetchMenuProps } from "helpers/fetching";
+import Head from "next/head";
 
 export default function BookPage({ navItems, settings, book }) {
 
     return (
-        <Layout navItems={navItems} settings={settings}>
-            {book && <BookOverview book={book} />}
-        </Layout>
+        <>
+            <Head>
+                <title>{book.title} | Booketlist Agency</title>
+            </Head>
+            <Layout navItems={navItems} settings={settings}>
+                {book && <BookOverview book={book} />}
+            </Layout>
+        </>
+
     )
 }
 

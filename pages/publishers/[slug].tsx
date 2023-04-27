@@ -1,12 +1,19 @@
 import Layout from "components/layout";
 import PublisherOverview from "components/publisheroverview";
 import { fetchAllPublisherSlugs, fetchMenuProps, fetchPublisher } from "helpers/fetching";
+import Head from "next/head";
 
 export default function PublisherPage({ navItems, settings, publisher }) {
     return (
-        <Layout navItems={navItems} settings={settings}>
-            {publisher && <PublisherOverview publisher={publisher} />}
-        </Layout>
+        <>
+            <Head>
+                <title>{publisher.name} | Booketlist Agency</title>
+            </Head>
+            <Layout navItems={navItems} settings={settings}>
+                {publisher && <PublisherOverview publisher={publisher} />}
+            </Layout>
+        </>
+
     )
 }
 

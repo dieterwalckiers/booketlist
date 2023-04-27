@@ -1,12 +1,19 @@
 import AuthorOverview from "components/authoroverview";
 import Layout from "components/layout";
 import { fetchAllAuthorSlugs, fetchAuthorWithBooks, fetchMenuProps } from "helpers/fetching";
+import Head from "next/head";
 
 export default function AuthorPage({ navItems, settings, author }) {
     return (
-        <Layout navItems={navItems} settings={settings}>
-            {author && <AuthorOverview author={author} />}
-        </Layout>
+        <>
+            <Head>
+                <title>{author.name} | Booketlist Agency</title>
+            </Head>
+            <Layout navItems={navItems} settings={settings}>
+                {author && <AuthorOverview author={author} />}
+            </Layout>
+        </>
+
     )
 }
 

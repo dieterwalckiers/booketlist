@@ -11,22 +11,28 @@ export function buildNavItems(
 ): Array<NavItem> {
     return [
         {
-            label: "Books +",
+            label: "Books",
             href: "/books",
-            children: bookCategories.map((bookCategory) => ({
-                label: bookCategory.name,
-                href: `/cat/${bookCategory.slug}`,
-            })),
+            children: [
+                {
+                    label: "All Books",
+                    href: "/books",
+                },
+                ...bookCategories.map((bookCategory) => ({
+                    label: bookCategory.name,
+                    href: `/cat/${bookCategory.slug}`,
+                })),
+            ],
         },
         {
-            label: "Publishers +",
+            label: "Publishers",
             children: publishers.map((publisher) => ({
                 label: publisher.name,
                 href: `/publishers/${publisher.slug}`,
             })),
         },
         {
-            label: "Authors & Illustrators +",
+            label: "Authors & Illustrators",
             children: authors.filter(a => a.showInMenu).map((author) => ({
                 label: author.name,
                 href: `/authors/${author.slug}`,

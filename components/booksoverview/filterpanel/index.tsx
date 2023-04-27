@@ -1,13 +1,18 @@
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link, Text, useBreakpointValue } from "@chakra-ui/react";
+import dynamic from 'next/dynamic'
 import React, { useCallback, useMemo } from "react";
 import { Author, Book, BookCategory, BookFilter, IBook, Language, Publisher } from "shared/contract";
 
-import FilterAutocomplete, { AcItem } from "./filterautocomplete";
+import { AcItem } from "./filterautocomplete";
 import FilterCheckboxList, { Checkable } from "./filtercheckboxlist";
 import FilterFromToAge from "./filterfromtoage";
 import FilterPanelSection from "./filterpanelsection";
 import { getUniqueAuthors, getUniqueAvailableLanguageRights, getUniqueCategories, getUniqueIllustrators, getUniquePublishers } from "./helpers";
 
+
+const FilterAutocompleteWithNoSSR = dynamic(import("./filterautocomplete"), { // https://github.com/chakra-ui/chakra-ui/issues/3020
+    ssr: false
+})
 interface Props {
     books: Book[];
     bookFilter: BookFilter;
@@ -97,8 +102,10 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
         })
     }, [bookFilter, onUpdateFilter]);
 
-    return (
-        <Box w={{ base: "100vw", md: "245px" }}>
+    const filterAvailable = true;
+
+    return filterAvailable ? (
+        <Box w={{ base: "100vw", md: "245px" }} >
             <Flex alignItems="center">
                 <Heading as="h2" color="#444" fontSize="xl">Filter</Heading>
                 {Object.keys(bookFilter).length ? (
@@ -116,7 +123,7 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                 />
             </FilterPanelSection>
             <FilterPanelSection title="Authors">
-                <FilterAutocomplete
+                <FilterAutocompleteWithNoSSR
                     items={acItemsFromAuthors(authors)}
                     selectedValues={(bookFilter.authors) || []}
                     onUpdateSelectedValues={onUpdateAuthors}
@@ -131,7 +138,7 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                 />
             </FilterPanelSection>
             <FilterPanelSection title="Illustrators">
-                <FilterAutocomplete
+                <FilterAutocompleteWithNoSSR
                     items={acItemsFromAuthors(illustrators)}
                     selectedValues={(bookFilter.illustrators) || []}
                     onUpdateSelectedValues={onUpdateIllustrators}
@@ -139,7 +146,7 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                 />
             </FilterPanelSection>
             <FilterPanelSection title="Publishers">
-                <FilterAutocomplete
+                <FilterAutocompleteWithNoSSR
                     items={acItemsFromPublishers(publishers)}
                     selectedValues={(bookFilter.publishers) || []}
                     onUpdateSelectedValues={onUpdatePublishers}
@@ -155,7 +162,7 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                 />
             </FilterPanelSection>
         </Box>
-    )
+    ) : null;
 }
 
 export default FilterPanel
