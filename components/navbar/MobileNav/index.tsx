@@ -1,6 +1,5 @@
 import {
     Stack,
-    useColorModeValue,
 } from '@chakra-ui/react';
 
 import MobileNavItem from "./MobileNavItem";
@@ -8,7 +7,7 @@ import MobileNavItem from "./MobileNavItem";
 const MobileNav = ({ navItems, reqCloseMenu }) => {
     return (
         <Stack
-            bg={useColorModeValue('white', 'gray.800')}
+            bg="white"
             p={4}
             display={{ md: 'none' }}>
             {(navItems || []).map((navItem) => (

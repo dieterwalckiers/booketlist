@@ -4,7 +4,6 @@ import {
     Link,
     Stack,
     Text,
-    useColorModeValue,
 } from "@chakra-ui/react";
 import { NavItem } from "components/navbar/contract";
 import NextLink from "next/link";
@@ -27,7 +26,8 @@ const MobileNavItem = ({ label, children, href, reqCloseMenu }: MobileNavItemPro
                 }}>
                 <Text
                     fontWeight={600}
-                    color={useColorModeValue('gray.600', 'gray.200')}>
+                    color="gray.600"
+                >
                     {label}
                 </Text>
             </Flex>
@@ -38,7 +38,7 @@ const MobileNavItem = ({ label, children, href, reqCloseMenu }: MobileNavItemPro
                     pl={4}
                     borderLeft={1}
                     borderStyle={'solid'}
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}
+                    borderColor="gray.200"
                     align={'start'}>
                     {children &&
                         children.map((child) => (

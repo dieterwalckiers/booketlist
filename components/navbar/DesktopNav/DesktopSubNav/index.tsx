@@ -21,8 +21,6 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             p={2}
             rounded={'md'}
             as={NextLink}
-        //_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
-        // _hover={{ fontWeight: 'bold' }}
         >
             <Stack direction={'row'} align={'center'}>
                 <Box>

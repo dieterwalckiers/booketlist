@@ -8,7 +8,6 @@ import {
     Flex,
     IconButton,
     Link,
-    useColorModeValue,
     useDisclosure,
 } from '@chakra-ui/react';
 import SearchBox from 'components/searchbox';
@@ -35,15 +34,14 @@ export default function NavBar<Props>({ navItems, logoData }) {
             mt={{ base: 0, md: 6 }}
         >
             <Flex
-                bg={useColorModeValue('white', 'gray.800')}
-                color={useColorModeValue('gray.600', 'white')}
+                bg="white"
+                color="gray.600"
                 minH={'60px'}
                 pt={{ base: 2 }}
                 pb={{ base: 4 }}
                 borderTop={1}
                 borderBottom={1}
                 borderStyle={'solid'}
-                // borderColor={useColorModeValue('gray.200', 'gray.900')}
                 align={'center'}
                 id="navbar-inner"
             >
