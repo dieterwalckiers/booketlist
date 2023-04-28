@@ -39,7 +39,7 @@ function BooksOverview({ title, filterable, books }: Props) {
         <Box>
             <Flex justifyContent="space-between">
                 {title ? <H1>All books</H1> : null}
-                <Hide above="md">
+                {filterable && isMobile ? (
                     <Link
                         onClick={onClickFilter}
                         py={1}
@@ -51,7 +51,7 @@ function BooksOverview({ title, filterable, books }: Props) {
                     >
                         {filterVisible ? "HIDE FILTER" : "FILTER BOOKS..."}
                     </Link>
-                </Hide>
+                ) : null}
             </Flex>
 
             <Flex direction={{ base: "column", md: "row" }}>
@@ -66,7 +66,7 @@ function BooksOverview({ title, filterable, books }: Props) {
                     <BookGallery books={filteredBooks} />
                 </Box>
             </Flex>
-        </Box>
+        </Box >
     )
 }
 
