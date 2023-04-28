@@ -1,4 +1,4 @@
-import { Box, ChakraBaseProvider, Stack } from "@chakra-ui/react";
+import { Box, ChakraProvider, Stack } from "@chakra-ui/react";
 import Navbar from "components/navbar";
 import { NavItem } from "components/navbar/contract";
 import React, { useMemo } from "react";
@@ -17,7 +17,7 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
     const logoData = useMemo(() => settings?.logo, [settings])
 
     return (
-        <ChakraBaseProvider theme={theme}>
+        <ChakraProvider theme={theme}>
             <Stack
                 direction="column"
                 id="layout"
@@ -33,7 +33,7 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
                     {children}
                 </Box>
             </Stack>
-        </ChakraBaseProvider>
+        </ChakraProvider>
     )
 }
 
