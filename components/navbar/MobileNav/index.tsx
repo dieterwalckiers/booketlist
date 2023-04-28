@@ -5,14 +5,18 @@ import {
 
 import MobileNavItem from "./MobileNavItem";
 
-const MobileNav = ({ navItems }) => {
+const MobileNav = ({ navItems, reqCloseMenu }) => {
     return (
         <Stack
             bg={useColorModeValue('white', 'gray.800')}
             p={4}
             display={{ md: 'none' }}>
             {(navItems || []).map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
+                <MobileNavItem
+                    key={navItem.label}
+                    {...navItem}
+                    reqCloseMenu={reqCloseMenu}
+                />
             ))}
         </Stack>
     );

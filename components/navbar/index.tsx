@@ -26,7 +26,7 @@ interface Props {
 }
 
 export default function NavBar<Props>({ navItems, logoData }) {
-    const { isOpen, onToggle } = useDisclosure();
+    const { isOpen, onToggle, onClose } = useDisclosure();
 
     return (
         <Box
@@ -87,7 +87,10 @@ export default function NavBar<Props>({ navItems, logoData }) {
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
-                <MobileNav navItems={navItems} />
+                <MobileNav
+                    navItems={navItems}
+                    reqCloseMenu={onClose}
+                />
             </Collapse>
         </Box>
     );

@@ -9,7 +9,11 @@ import {
 import { NavItem } from "components/navbar/contract";
 import NextLink from "next/link";
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+type MobileNavItemProps = NavItem & {
+    reqCloseMenu: () => void;
+}
+
+const MobileNavItem = ({ label, children, href, reqCloseMenu }: MobileNavItemProps) => {
     return (
         <Stack spacing={4}>
             <Flex
@@ -38,7 +42,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     align={'start'}>
                     {children &&
                         children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href} as={NextLink} color="black">
+                            <Link key={child.label} py={2} href={child.href} as={NextLink} color="black" onClick={reqCloseMenu}>
                                 {child.label}
                             </Link>
                         ))}
