@@ -8,6 +8,11 @@ const imageElement = {
       title: "Image",
       type: "image",
     },
+    {
+      name: "link",
+      title: "Link",
+      type: "string",
+    },
   ],
   preview: {
     select: {

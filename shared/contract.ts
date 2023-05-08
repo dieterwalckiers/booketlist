@@ -75,6 +75,7 @@ export interface PageElementImage extends PageElement {
     height: any;
     widthType: any;
     asset: any;
+    link?: string;
 }
 
 export interface PageElementTitle extends PageElement {

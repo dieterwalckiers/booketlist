@@ -20,16 +20,24 @@ const PageElementImage: React.FC<IProps> = ({ element }) => {
         imageData,
     );
 
+    const clickImg = () => {
+        if (!(element.link)) {
+            return;
+        }
+        window.open(element.link, "_blank");
+    }
+
     return imageData && (
         <Box w="100%">
             <Image
                 {...imageProps as any}
-                style={{ width: "100%", height: 'auto' }}
+                style={{ width: "100%", height: 'auto', cursor: element.link ? "pointer" : "default" }}
                 sizes="(max-width: 48em) 100vw,
                         600px"
                 placeholder="blur"
                 blurDataURL={imageData.asset.metadata.lqip}
                 alt="" // TODO add alt text to cms
+                onClick={clickImg}
             />
         </Box >
     );
