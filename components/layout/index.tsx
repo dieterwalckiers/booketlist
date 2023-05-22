@@ -34,7 +34,7 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
                     {children}
                 </Box>
             </Stack>
-            <Footer logoData={logoData} />
+            <Footer />
         </ChakraProvider>
     )
 }
