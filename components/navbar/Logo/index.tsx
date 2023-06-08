@@ -18,7 +18,7 @@ const Logo: React.FC<IProps> = ({ logoData }) => {
 
     return (
         <Stack id="logo" width="300px" height="auto">
-            {logoData && (
+            {logoData?.asset && (
                 <Image
                     {...logoImageProps as any}
                     style={{ width: '300px', height: 'auto' }}

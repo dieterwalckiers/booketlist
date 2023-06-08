@@ -32,14 +32,16 @@ const BookCard: React.FC<IProps> = ({ book }) => {
                 my={{ base: 0, md: 6 }}
                 cursor="pointer"
             >
-                <Image
-                    {...bookCoverImageProps as any}
-                    style={{ width: "100%", height: 'auto' }}
-                    sizes="(max-width: 48em) 100vw, 300px"
-                    placeholder="blur"
-                    blurDataURL={book.cover.asset.metadata.lqip}
-                    alt={`Cover for ${book.title}`}
-                />
+                {book.cover?.asset && (
+                    <Image
+                        {...bookCoverImageProps as any}
+                        style={{ width: "100%", height: 'auto' }}
+                        sizes="(max-width: 48em) 100vw, 300px"
+                        placeholder="blur"
+                        blurDataURL={book.cover.asset.metadata.lqip}
+                        alt={`Cover for ${book.title}`}
+                    />
+                )}
                 <Text mt={4}>
                     {book.title}
                 </Text>

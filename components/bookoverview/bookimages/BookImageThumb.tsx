@@ -48,13 +48,15 @@ const BookImageThumb: React.FC<Props> = ({
             p={1}
             onClick={buildOnClick()}
         >
-            <Image
-                {...bookImageProps as any}
-                sizes="100px"
-                placeholder="blur"
-                blurDataURL={image.asset.metadata.lqip}
-                alt={`Image for ${bookTitle}`}
-            />
+            {image.asset && (
+                <Image
+                    {...bookImageProps as any}
+                    sizes="100px"
+                    placeholder="blur"
+                    blurDataURL={image.asset.metadata.lqip}
+                    alt={`Image for ${bookTitle}`}
+                />
+            )}
         </Box>
     )
 }

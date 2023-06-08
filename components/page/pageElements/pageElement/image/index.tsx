@@ -27,7 +27,7 @@ const PageElementImage: React.FC<IProps> = ({ element }) => {
         window.open(element.link, "_blank");
     }
 
-    return imageData && (
+    return imageData?.asset && (
         <Box w="100%">
             <Image
                 {...imageProps as any}

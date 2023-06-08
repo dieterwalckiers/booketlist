@@ -27,15 +27,17 @@ const BookImages: React.FC<Props> = ({
 
     return (
         <Box>
-            <Image
-                {...activeImageProps as any}
-                style={{ width: "100%", height: 'auto' }}
-                sizes="(max-width: 48em) 100vw,
+            {book.cover.asset && (
+                <Image
+                    {...activeImageProps as any}
+                    style={{ width: "100%", height: 'auto' }}
+                    sizes="(max-width: 48em) 100vw,
                         33vw"
-                placeholder="blur"
-                blurDataURL={book.cover.asset.metadata.lqip}
-                alt={`Cover for ${book.title}`}
-            />
+                    placeholder="blur"
+                    blurDataURL={book.cover.asset.metadata.lqip}
+                    alt={`Cover for ${book.title}`}
+                />
+            )}
             {allImages.length > 1 && (
                 <Flex mt={4}>
                     {allImages.map((image, index) => {
