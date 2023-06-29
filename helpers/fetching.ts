@@ -37,31 +37,31 @@ export async function fetchAllBooks(): Promise<Book[]> {
 export async function fetchAllBookSlugs() {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const booksRaw = await authClient.fetch(`*[_type == "book"]{ slug }`);
-  return booksRaw.map(book => book.slug.current);
+  return booksRaw.map(book => book.slug?.current).filter(slug => !!slug);
 }
 
 export async function fetchAllPageSlugs() {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const pagesRaw = await authClient.fetch(`*[_type == "page"]{ slug }`);
-  return pagesRaw.map(page => page.slug.current);
+  return pagesRaw.map(page => page.slug?.current).filter(slug => !!slug);
 }
 
 export async function fetchAllAuthorSlugs() {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const authorsRaw = await authClient.fetch(`*[_type == "author"]`);
-  return authorsRaw.map(author => author.slug.current);
+  return authorsRaw.map(author => author.slug?.current).filter(slug => !!slug);
 }
 
 export async function fetchAllPublisherSlugs() {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const publishersRaw = await authClient.fetch(`*[_type == "publisher"]`);
-  return publishersRaw.map(publisher => publisher.slug.current);
+  return publishersRaw.map(publisher => publisher.slug?.current).filter(slug => !!slug);
 }
 
 export async function fetchAllBookCategorySlugs() {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const bookCategoriesRaw = await authClient.fetch(`*[_type == "bookCategory"]`);
-  return bookCategoriesRaw.map(cat => cat.slug.current);
+  return bookCategoriesRaw.map(cat => cat.slug?.current).filter(slug => !!slug);
 }
 
 export async function fetchHome(): Promise<Home> {
