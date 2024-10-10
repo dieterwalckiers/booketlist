@@ -33,7 +33,7 @@ export function getUniqueIllustrators(books: Book[]): Author[] {
 
 export function getUniquePublishers(books: Book[]): Publisher[] {
     return books.reduce((acc, book) => {
-        if (!(acc.some(p => p.name === book.publisher.name))) {
+        if (!(acc.some(p => p.name === book.publisher?.name))) {
             acc.push(book.publisher);
         }
         return acc;
