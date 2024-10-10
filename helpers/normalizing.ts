@@ -8,7 +8,7 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
         ...book,
         bookCategory: normalizeBookCategory(book.bookCategory),
         slug: book.slug?.current || null,
-        authors: skipNormAuthor ? (book.authors || []) : book.authors.filter(a => !!a).map(a => normalizeAuthor(a, true)),
+        authors: skipNormAuthor ? (book.authors || []) : (book.authors || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         illustrators: skipNormAuthor ? (book.illustrators || []) : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         publisher: skipNormAuthor ? book.publisher : normalizePublisher(book.publisher),
         availableLanguageRights: skipNormAuthor ? (book.availableLanguageRights || []) : (book.availableLanguageRights || []).map(l => ({
