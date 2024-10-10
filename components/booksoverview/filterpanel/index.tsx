@@ -41,10 +41,14 @@ function acItemsFromAuthors(authors: Author[]): AcItem[] {
 }
 
 function acItemsFromPublishers(publishers: Publisher[]): AcItem[] {
-    return publishers.map((publisher) => ({
-        label: publisher.name,
-        value: publisher.slug,
-    }))
+    try {
+        return publishers.map((publisher) => ({
+            label: publisher.name,
+            value: publisher.slug,
+        }))
+    } catch (e) {
+        throw new Error(`${e.message} caused by ${JSON.stringify(publishers)}`)
+    }
 }
 
 const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => {
