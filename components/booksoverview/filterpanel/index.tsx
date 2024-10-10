@@ -42,7 +42,7 @@ function acItemsFromAuthors(authors: Author[]): AcItem[] {
 
 function acItemsFromPublishers(publishers: Publisher[]): AcItem[] {
     try {
-        return publishers.map((publisher) => ({
+        return publishers.filter(p => !!p).map((publisher) => ({
             label: publisher.name,
             value: publisher.slug,
         }))
