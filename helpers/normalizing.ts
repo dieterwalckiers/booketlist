@@ -7,7 +7,7 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
     return {
         ...book,
         bookCategory: normalizeBookCategory(book.bookCategory),
-        slug: book.slug?.current,
+        slug: book.slug?.current || null,
         authors: skipNormAuthor ? (book.authors || []) : book.authors.filter(a => !!a).map(a => normalizeAuthor(a, true)),
         illustrators: skipNormAuthor ? (book.illustrators || []) : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         publisher: skipNormAuthor ? book.publisher : normalizePublisher(book.publisher),
@@ -44,7 +44,7 @@ function normalizePageElement(pageElement: any, imageAssetsMap?: any[]): PageEle
 export function normalizePage(page: any): Page {
     return {
         ...page,
-        slug: page.slug?.current,
+        slug: page.slug?.current || null,
         elements: page.elements.map(el => normalizePageElement(el, page.imageAssets)),
     };
 }
@@ -59,7 +59,7 @@ export function normalizeHome(home: any): Home {
 export function normalizePublisher(publisher: any): Publisher {
     return {
         ...publisher,
-        slug: publisher.slug?.current,
+        slug: publisher.slug?.current || null,
         elements: (publisher.elements || []).map(el => normalizePageElement(el, publisher.imageAssets)),
     };
 }
@@ -69,14 +69,14 @@ export function normalizeAuthor<A extends IAuthor>(author: any, skipNormBook = f
         ...author,
         ...(skipNormBook ? {} : { books: (author.books || []).map(book => normalizeBook(book, true)) }),
         elements: (author.elements || []).map(el => normalizePageElement(el, author.imageAssets)),
-        slug: author.slug?.current,
+        slug: author.slug?.current || null,
     };
 }
 
 export function normalizeBookCategory(bookCategory: any): BookCategory {
     return {
         ...bookCategory,
-        slug: bookCategory.slug?.current,
+        slug: bookCategory.slug?.current || null,
     };
 }
 
