@@ -18,7 +18,10 @@ const BookImages: React.FC<Props> = ({
     const [activeImageIndex, setActiveImageIndex] = React.useState(0);
 
     const additionalImages = book.additionalImages || [];
-    const allImages = [book.cover, ...additionalImages];
+    const allImages = [
+        ...(book.cover ? [book.cover] : []),
+        ...additionalImages
+    ];
 
     const activeImageProps: Record<string, any> = useNextSanityImage(
         client,
@@ -27,7 +30,7 @@ const BookImages: React.FC<Props> = ({
 
     return (
         <Box>
-            {book.cover.asset && (
+            {book.cover?.asset && (
                 <Image
                     {...activeImageProps as any}
                     style={{ width: "100%", height: 'auto' }}
