@@ -62,22 +62,24 @@ const BookDetail: React.FC<IProps> = ({ book }) => {
                     {`Age: ${book.age}+`}
                 </Box>
             )}
-            <Box mt={{ base: 4, md: 12 }}>
-                <Flex>
-                    <Text mr={2}>
-                        Publisher:
-                    </Text>
-                    <Link
-                        href={`/publishers/${book.publisher.slug}`}
-                        as={NextLink}
-                        _hover={{ textDecoration: "underline", color: "teal" }}
-                        textUnderlineOffset={4}
-                    >
-                        {book.publisher.name}
-                    </Link>
+            {book.publisher?.slug && (
+                <Box mt={{ base: 4, md: 12 }}>
+                    <Flex>
+                        <Text mr={2}>
+                            Publisher:
+                        </Text>
+                        <Link
+                            href={`/publishers/${book.publisher.slug}`}
+                            as={NextLink}
+                            _hover={{ textDecoration: "underline", color: "teal" }}
+                            textUnderlineOffset={4}
+                        >
+                            {book.publisher.name}
+                        </Link>
 
-                </Flex>
-            </Box>
+                    </Flex>
+                </Box>
+            )}
         </Flex >
     )
 }
