@@ -34,7 +34,7 @@ const BookDetail: React.FC<IProps> = ({ book }) => {
                     </Stack>
                 </Flex>
             ) : null}
-            {book.illustrators.length ? (
+            {book.illustrators?.length ? (
                 <Flex>
                     <Text mr="2">{`Illustrator${book.authors?.length > 1 ? "s" : ""}`}:</Text>
                     {(book.illustrators || []).map((author => (
