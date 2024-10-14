@@ -10,7 +10,7 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
         slug: book.slug?.current || null,
         authors: skipNormAuthor ? (book.authors || []) : (book.authors || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         illustrators: skipNormAuthor ? (book.illustrators || []) : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
-        publisher: skipNormAuthor || !book.publisher ? book.publisher : normalizePublisher(book.publisher),
+        publisher: (skipNormAuthor || !book.publisher ? book.publisher : normalizePublisher(book.publisher)) || null,
         availableLanguageRights: skipNormAuthor ? (book.availableLanguageRights || []) : (book.availableLanguageRights || []).map(l => ({
             code: l.toLowerCase(),
             name: getLangName(l.toLowerCase()),
