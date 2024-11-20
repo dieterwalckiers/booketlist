@@ -31,7 +31,7 @@ export default function SmallCentered({ }) {
                 </a>
                 <Stack direction={'row'} spacing={6}>
                     <Link href={'books'}>Books</Link>
-                    <Link href={'about'}>About</Link>
+                    <Link href={'page/about'}>About</Link>
                 </Stack>
             </Flex>
         </Box >

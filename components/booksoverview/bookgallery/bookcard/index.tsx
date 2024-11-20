@@ -28,7 +28,7 @@ const BookCard: React.FC<IProps> = ({ book }) => {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                mx={{ base: 0, md: 12 }}
+                mx={{ base: 0, md: 6 }}
                 my={{ base: 0, md: 6 }}
                 cursor="pointer"
             >

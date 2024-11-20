@@ -14,7 +14,9 @@ export default function IndexPage({ navItems, settings, home, highlightedBooks }
                 <PageElements
                     elements={home.elements}
                     pageTitle="home"
-                    extraProps={{ highlightedBooksElement: { highlightedBooks } }}
+                    extraProps={{
+                        highlightedBooksElement: { highlightedBooks },
+                    }}
                 />
             </Layout>
         </>

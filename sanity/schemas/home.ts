@@ -12,6 +12,7 @@ const home = {
                 { type: "imageElement" },
                 { type: "titleElement" },
                 { type: "highlightedBooksElement" },
+                { type: "joinNewsletterElement" },
             ]
         },
     ],

@@ -109,7 +109,7 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
     const filterAvailable = true;
 
     return filterAvailable ? (
-        <Box w={{ base: "100vw", md: "245px" }} >
+        <Box w={{ base: "100vw", md: "280px" }} className="filterpanel" >
             <Flex alignItems="center">
                 <Heading as="h2" color="#444" fontSize="xl">Filter</Heading>
                 {Object.keys(bookFilter).length ? (

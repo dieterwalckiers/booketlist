@@ -6,6 +6,7 @@ import bookCategory from "./schemas/bookCategory";
 import highlightedBooksElement from "./schemas/highlightedBooksElement";
 import home from "./schemas/home";
 import imageElement from "./schemas/imageElement";
+import joinNewsletterElement from "./schemas/joinNewsletterElement";
 import languageRight from "./schemas/languageRight";
 import page from "./schemas/page";
 import publisher from "./schemas/publisher";
@@ -26,6 +27,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     imageElement,
     titleElement,
     highlightedBooksElement,
+    joinNewsletterElement,
     languageRight,
   ],
 }
