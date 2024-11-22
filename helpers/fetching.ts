@@ -31,6 +31,10 @@ export async function fetchAllBooks(): Promise<Book[]> {
         }
       }
     `);
+    // pick back up: doing migration of next-sanity from 3 to 9
+    // https://github.com/sanity-io/next-sanity/blob/main/packages/next-sanity/MIGRATE-v8-to-v9.md
+    // check if site and studio render
+    // and why there are ts errors like above with authClient.fetch
   return booksRaw.filter(filterOutDrafts).map(book => normalizeBook(book));
 }
 

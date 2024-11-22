@@ -1,7 +1,7 @@
 import 'styles/global.css'
 
-import { Raleway } from '@next/font/google'
 import { AppProps } from 'next/app'
+import { Raleway } from 'next/font/google'
 import Head from 'next/head';
 
 const raleway = Raleway({ subsets: ['latin'] });
