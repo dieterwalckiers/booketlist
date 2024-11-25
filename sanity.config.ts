@@ -4,7 +4,7 @@
 
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
+import { structureTool } from "sanity/structure";
 
 // see https://www.sanity.io/docs/api-versioning for how versioning works
 import { apiVersion, dataset, projectId } from './sanity/env'
@@ -12,6 +12,7 @@ import { schema } from './sanity/schema';
 
 const singletonActions = new Set(["publish", "discardChanges", "restore"])
 const singletonTypes = new Set(["home", "settings"]);
+import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 
 export default defineConfig({
   basePath: '/studio',
@@ -19,8 +20,8 @@ export default defineConfig({
   dataset,
   //edit schemas in './sanity/schema'
   plugins: [
-    deskTool({
-      structure: (S) => S.list()
+    structureTool({
+      structure: (S, context) => S.list()
         .title("Content")
         .items([
           S.listItem()
@@ -48,11 +49,25 @@ export default defineConfig({
             .child(
               S.documentTypeList("page")
             ),
-          S.listItem()
-            .title("Book categories")
-            .child(
-              S.documentTypeList("bookCategory")
-            ),
+          // S.listItem()
+          //   .title("Book categories")
+          //   .child(
+          //     S.documentTypeList("bookCategory")
+          //   ),
+          orderableDocumentListDeskItem({
+            type: "bookCategory",
+            title: "Book categories", // pick back up: make ordering work (just realized I need structureTool instead of deskTool, but it's not rendering just yet, if all else fails stash local work and start again)
+            // Required if using multiple lists of the same 'type'
+            // id: 'orderable-en-projects',
+            // See notes on adding a `filter` below
+            // filter: `__i18n_lang == $lang`,
+            // params: {
+            //   lang: 'en_US',
+            // },
+            // pass from the structure callback params above
+            S,
+            context
+          }),
           S.listItem()
             .title("Books")
             .child(

@@ -7,6 +7,7 @@ import { filterOutDrafts, normalizeAuthor, normalizeBook, normalizeBookCategory,
 
 export async function fetchAllBooks(): Promise<Book[]> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN });
+
   const booksRaw = await authClient.fetch(`
       *[_type == "book"] {
         ...,
@@ -230,7 +231,7 @@ export async function fetchHighlightedBooks(): Promise<Book[]> {
 export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings: any }> {
 
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
-  const bookCategoriesRaw = await authClient.fetch(`*[_type == "bookCategory"]`);
+  const bookCategoriesRaw = await authClient.fetch(`*[_type == "bookCategory"]|order(orderRank)`);
   const bookCategories = bookCategoriesRaw.map(bookCategory => normalizeBookCategory(bookCategory));
 
   const settings = await authClient.fetch(`
