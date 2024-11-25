@@ -245,9 +245,9 @@ export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings:
       }
     `);
 
-  const publishersRaw = await authClient.fetch(`*[_type == "publisher"]`);
+  const publishersRaw = await authClient.fetch(`*[_type == "publisher"]|order(name asc)`);
   const publishers = publishersRaw.filter(filterOutDrafts).map(publisher => normalizePublisher(publisher));
-  const authorsRaw = await authClient.fetch(`*[_type == "author"]`);
+  const authorsRaw = await authClient.fetch(`*[_type == "author"]|order(name asc)`);
   const authors = authorsRaw.filter(filterOutDrafts).map(author => normalizeAuthor<Author>(author));
   const pagesRaw = await authClient.fetch(`*[_type == "page"] {
         ...,
