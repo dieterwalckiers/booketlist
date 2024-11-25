@@ -7,6 +7,7 @@ import { filterOutDrafts, normalizeAuthor, normalizeBook, normalizeBookCategory,
 
 export async function fetchAllBooks(): Promise<Book[]> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN });
+
   const booksRaw = await authClient.fetch(`
       *[_type == "book"] {
         ...,
@@ -31,10 +32,6 @@ export async function fetchAllBooks(): Promise<Book[]> {
         }
       }
     `);
-    // pick back up: doing migration of next-sanity from 3 to 9
-    // https://github.com/sanity-io/next-sanity/blob/main/packages/next-sanity/MIGRATE-v8-to-v9.md
-    // check if site and studio render
-    // and why there are ts errors like above with authClient.fetch
   return booksRaw.filter(filterOutDrafts).map(book => normalizeBook(book));
 }
 
@@ -234,7 +231,7 @@ export async function fetchHighlightedBooks(): Promise<Book[]> {
 export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings: any }> {
 
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
-  const bookCategoriesRaw = await authClient.fetch(`*[_type == "bookCategory"]`);
+  const bookCategoriesRaw = await authClient.fetch(`*[_type == "bookCategory"]|order(orderRank)`);
   const bookCategories = bookCategoriesRaw.map(bookCategory => normalizeBookCategory(bookCategory));
 
   const settings = await authClient.fetch(`

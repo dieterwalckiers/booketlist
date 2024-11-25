@@ -37,7 +37,7 @@ const PageElementJoinNewsletter: React.FC<IProps> = ({ element }) => {
                                 <div className="response" id="mce-success-response" style={{ display: "none" }}></div>
                             </div>
                             <div style={{ position: "absolute", left: "-5000px" }}>
-                                <input type="text" name="b_8c02d00d8abf75b34b6f715db_7cfa8d5bcd" tabIndex={-1} value="" />
+                                <input type="text" name="b_8c02d00d8abf75b34b6f715db_7cfa8d5bcd" tabIndex={-1} />
                             </div>
                             <div className="clear">
                                 <input type="submit" name="subscribe" id="mc-embedded-subscribe" className="button" value="Subscribe" />
