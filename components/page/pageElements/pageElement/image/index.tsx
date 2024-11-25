@@ -10,7 +10,7 @@ interface IProps {
     element: PageElementImage;
 }
 
-const PageElementImage: React.FC<IProps> = ({ element }) => {
+const PageElement: React.FC<IProps> = ({ element }) => {
 
     console.log("img el", element);
 
@@ -43,4 +43,4 @@ const PageElementImage: React.FC<IProps> = ({ element }) => {
     );
 }
 
-export default PageElementImage
+export default PageElement

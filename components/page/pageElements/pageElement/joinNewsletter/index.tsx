@@ -8,7 +8,7 @@ interface IProps {
     element: PageElementJoinNewsletter;
 }
 
-const PageElementJoinNewsletter: React.FC<IProps> = ({ element }) => {
+const PageElement: React.FC<IProps> = ({ element }) => {
 
     return (
         <Stack border="1px solid black">
@@ -51,4 +51,4 @@ const PageElementJoinNewsletter: React.FC<IProps> = ({ element }) => {
     );
 }
 
-export default PageElementJoinNewsletter;
+export default PageElement;

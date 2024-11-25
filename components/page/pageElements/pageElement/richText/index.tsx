@@ -7,10 +7,10 @@ interface IProps {
     element: PageElementRichText;
 }
 
-const PageElementRichText: React.FC<IProps> = ({ element }) => {
+const PageElement: React.FC<IProps> = ({ element }) => {
     return (
         <PortableText value={element.value} />
     );
 }
 
-export default PageElementRichText
+export default PageElement

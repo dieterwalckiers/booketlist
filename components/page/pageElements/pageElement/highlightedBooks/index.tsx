@@ -10,7 +10,7 @@ interface IProps {
     highlightedBooks?: IBook[];
 }
 
-const PageElementHighlightedBooks: React.FC<IProps> = ({ element, highlightedBooks }) => {
+const PageElement: React.FC<IProps> = ({ element, highlightedBooks }) => {
     return (
         <Box>
             {element.title && (
@@ -23,4 +23,4 @@ const PageElementHighlightedBooks: React.FC<IProps> = ({ element, highlightedBoo
     );
 }
 
-export default PageElementHighlightedBooks;
+export default PageElement;

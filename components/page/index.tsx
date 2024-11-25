@@ -5,10 +5,10 @@ interface Props {
     page: Page;
 }
 
-const Page: React.FC<Props> = ({ page }) => {
+const P: React.FC<Props> = ({ page }) => {
     return (
         <PageElements elements={page.elements || []} pageTitle={page.title} />
     );
 }
 
-export default Page
+export default P;

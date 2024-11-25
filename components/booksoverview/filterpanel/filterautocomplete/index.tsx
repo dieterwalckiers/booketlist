@@ -2,6 +2,8 @@ import { Box } from "@chakra-ui/react";
 import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import React, { useCallback, useMemo } from "react";
 
+const CUIAutoCompleteAny = CUIAutoComplete as any;
+
 export interface AcItem {
     label: string;
     value: string;
@@ -26,7 +28,7 @@ const FilterAutocomplete: React.FC<Props> = ({ items, selectedValues, onUpdateSe
 
     return (
         <Box className="filterAutoComplete" m={0} p={0}>
-            <CUIAutoComplete
+            <CUIAutoCompleteAny
                 label=""
                 placeholder={placeholder}
                 // onCreateItem={handleCreateItem}

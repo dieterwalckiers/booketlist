@@ -8,7 +8,7 @@ interface IProps {
     element: PageElementTitle;
 }
 
-const PageElementTitle: React.FC<IProps> = ({ element }) => {
+const PageElement: React.FC<IProps> = ({ element }) => {
     const value = element?.value;
     return value && (
         <Box w="100%">
@@ -19,4 +19,4 @@ const PageElementTitle: React.FC<IProps> = ({ element }) => {
     );
 }
 
-export default PageElementTitle;
+export default PageElement;
