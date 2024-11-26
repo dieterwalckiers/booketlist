@@ -10,6 +10,7 @@ const home = {
             of: [
                 { type: "richTextElement" },
                 { type: "imageElement" },
+                { type: "galleryElement" },
                 { type: "titleElement" },
                 { type: "highlightedBooksElement" },
                 { type: "joinNewsletterElement" },

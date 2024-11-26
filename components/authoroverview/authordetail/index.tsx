@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import H1 from 'components/headings/h1';
 import PageElements from 'components/page/pageElements';
 import React from "react";
@@ -11,10 +11,10 @@ interface IProps {
 const AuthorDetail: React.FC<IProps> = ({ author }) => {
 
     return (
-        <Box id="author-detail">
+        <VStack id="author-detail">
             <H1>{author.name}</H1>
             <PageElements elements={author.elements} pageTitle="authorInfo" />
-        </Box>
+        </VStack>
     )
 }
 

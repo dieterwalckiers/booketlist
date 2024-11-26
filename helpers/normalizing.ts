@@ -19,22 +19,8 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
     };
 }
 
-function normalizePageElement(pageElement: any, imageAssetsMap?: any[]): PageElement {
 
-    if (pageElement.value && pageElement.value.asset && imageAssetsMap) {
-        const asset = imageAssetsMap.filter(a => !!a).find(asset => asset._id === pageElement.value.asset._ref)
-        if (asset) {
-            return {
-                ...pageElement,
-                type: pageElement._type,
-                value: {
-                    ...pageElement.value,
-                    asset,
-                }
-            }
-        }
-    }
-
+function normalizePageElement(pageElement: any): PageElement {
     return {
         ...pageElement,
         type: pageElement._type,
@@ -45,14 +31,14 @@ export function normalizePage(page: any): Page {
     return {
         ...page,
         slug: page.slug?.current || null,
-        elements: page.elements.map(el => normalizePageElement(el, page.imageAssets)),
+        elements: page.elements.map(el => normalizePageElement(el)),
     };
 }
 
 export function normalizeHome(home: any): Home {
     return {
         ...home,
-        elements: home.elements.map(el => normalizePageElement(el, home.imageAssets)),
+        elements: home.elements.map(el => normalizePageElement(el)),
     };
 }
 
@@ -60,7 +46,7 @@ export function normalizePublisher(publisher: any): Publisher {
     return {
         ...publisher,
         slug: publisher.slug?.current || null,
-        elements: (publisher.elements || []).map(el => normalizePageElement(el, publisher.imageAssets)),
+        elements: (publisher.elements || []).map(el => normalizePageElement(el)),
     };
 }
 
@@ -68,7 +54,7 @@ export function normalizeAuthor<A extends IAuthor>(author: any, skipNormBook = f
     return {
         ...author,
         ...(skipNormBook ? {} : { books: (author.books || []).map(book => normalizeBook(book, true)) }),
-        elements: (author.elements || []).map(el => normalizePageElement(el, author.imageAssets)),
+        elements: (author.elements || []).map(el => normalizePageElement(el)),
         slug: author.slug?.current || null,
     };
 }

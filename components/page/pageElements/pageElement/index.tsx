@@ -3,12 +3,14 @@ import * as React from "react";
 
 import {
     PageElement as IPageElement,
+    PageElementGallery as IPageElementGallery,
     PageElementHighlightedBooks as IPageElementHighlightedBooks,
     PageElementImage as IPageElementImage,
     PageElementJoinNewsletter as IPageElementJoinNewsletter,
     PageElementRichText as IPageElementRichText,
     PageElementTitle as IPageElementTitle,
 } from "../../../../shared/contract";
+import PageElementGallery from "./gallery";
 import PageElementHighlightedBooks from "./highlightedBooks";
 import PageElementImage from "./image";
 import PageElementJoinNewsletter from "./joinNewsletter";
@@ -30,6 +32,8 @@ const PageElement: React.FC<IProps> = (props) => {
                 return <PageElementRichText element={pageElement as IPageElementRichText} />
             case "imageElement":
                 return <PageElementImage element={pageElement as IPageElementImage} />
+            case "galleryElement":
+                return <PageElementGallery element={pageElement as IPageElementGallery} />
             case "titleElement":
                 return <PageElementTitle element={pageElement as IPageElementTitle} />;
             case "highlightedBooksElement":

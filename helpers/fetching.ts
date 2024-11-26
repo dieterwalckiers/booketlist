@@ -191,10 +191,42 @@ export async function fetchPublisher(slug: string): Promise<Publisher> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const publisherRaw = await authClient.fetch(`
       *[_type == "publisher" && slug.current == $slug][0] {
-        ...,
-        "imageAssets": elements[].value.asset->{
+        name,
+        slug,
+        elements[] {
           ...,
-          metadata,
+          _type == "imageElement" => {
+            ...,
+            value {
+              ..., 
+              asset->{
+                _id,
+                url,
+                metadata {
+                  dimensions,
+                  lqip,
+                  palette,
+                  ...
+                }
+              }
+            }
+          },
+          _type == "galleryElement" => {
+            ...,
+            value[] {
+              ..., 
+              asset->{
+                _id,
+                url,
+                metadata {
+                  dimensions,
+                  lqip,
+                  palette,
+                  ...
+                }
+              }
+            }
+          }
         }
       }
     `, { slug });

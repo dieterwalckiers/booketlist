@@ -12,8 +12,6 @@ interface IProps {
 
 const PageElement: React.FC<IProps> = ({ element }) => {
 
-    console.log("img el", element);
-
     const imageData = element?.value;
     const imageProps: Record<string, any> = useNextSanityImage(
         client,
