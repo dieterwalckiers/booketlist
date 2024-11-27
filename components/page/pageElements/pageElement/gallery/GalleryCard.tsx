@@ -1,15 +1,15 @@
 import {
     Modal,
-    ModalOverlay,
     ModalContent,
+    ModalOverlay,
     useDisclosure,
-    Box
 } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
-import { client } from "../../../../../sanity/lib/client";
 import { useNextSanityImage } from "next-sanity-image";
+import React from "react";
+
+import { client } from "../../../../../sanity/lib/client";
 
 interface Props {
     imageData: any;

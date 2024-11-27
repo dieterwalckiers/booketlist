@@ -15,11 +15,41 @@ export async function fetchAllBooks(): Promise<Book[]> {
         illustrators[]->{name,slug},
         publisher->{
           name,
-          elements,
           slug,
-          "imageAssets": elements[].value.asset->{
+          elements[] {
             ...,
-            metadata
+            _type == "imageElement" => {
+              ...,
+              value {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
+                }
+              }
+            },
+            _type == "galleryElement" => {
+              ...,
+              value[] {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
+                }
+              }
+            }
           }
         },
         bookCategory->{name,slug},
@@ -69,9 +99,40 @@ export async function fetchHome(): Promise<Home> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
   const homeRaw = await authClient.fetch(`*[_type == "home"][0] {
     ...,
-    "imageAssets": elements[].value.asset->{
+    elements[] {
       ...,
-      metadata
+      _type == "imageElement" => {
+        ...,
+        value {
+          ..., 
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions,
+              lqip,
+              palette,
+              ...
+            }
+          }
+        }
+      },
+      _type == "galleryElement" => {
+        ...,
+        value[] {
+          ..., 
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions,
+              lqip,
+              palette,
+              ...
+            }
+          }
+        }
+      }
     }
   }`);
   return normalizeHome(homeRaw);
@@ -88,9 +149,40 @@ export async function fetchBook(slug: string): Promise<Book> {
         publisher->{
           name,
           slug,
-          "imageAssets": elements[].value.asset->{
+          elements[] {
             ...,
-            metadata
+            _type == "imageElement" => {
+              ...,
+              value {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
+                }
+              }
+            },
+            _type == "galleryElement" => {
+              ...,
+              value[] {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
+                }
+              }
+            }
           }
         },
         'availableLanguageRights': languageRights[isSold != true].languageCode,
@@ -117,9 +209,40 @@ export async function fetchPage(slug: string): Promise<Page> {
   const pageRaw = await authClient.fetch(`
     *[_type == "page" && slug.current == $slug][0] {
       ...,
-      "imageAssets": elements[].value.asset->{
+      elements[] {
         ...,
-        metadata
+        _type == "imageElement" => {
+          ...,
+          value {
+            ..., 
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions,
+                lqip,
+                palette,
+                ...
+              }
+            }
+          }
+        },
+        _type == "galleryElement" => {
+          ...,
+          value[] {
+            ..., 
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions,
+                lqip,
+                palette,
+                ...
+              }
+            }
+          }
+        }
       }
     }
     `, { slug });
@@ -141,9 +264,40 @@ export async function fetchBooksForCategorySlug(categorySlug: string): Promise<B
         publisher->{
           name,
           slug,
-          "imageAssets": elements[].value.asset->{
+          elements[] {
             ...,
-            metadata
+            _type == "imageElement" => {
+              ...,
+              value {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
+                }
+              }
+            },
+            _type == "galleryElement" => {
+              ...,
+              value[] {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
+                }
+              }
+            }
           }
         },
         bookCategory->{name,slug},
@@ -167,9 +321,40 @@ export async function fetchAuthorWithBooks(slug: string): Promise<AuthorWithBook
   const authorRaw = await authClient.fetch(`
       *[_type == "author" && slug.current == $slug][0] {
         ...,
-        "imageAssets": elements[].value.asset->{
+        elements[] {
           ...,
-          metadata
+          _type == "imageElement" => {
+            ...,
+            value {
+              ..., 
+              asset->{
+                _id,
+                url,
+                metadata {
+                  dimensions,
+                  lqip,
+                  palette,
+                  ...
+                }
+              }
+            }
+          },
+          _type == "galleryElement" => {
+            ...,
+            value[] {
+              ..., 
+              asset->{
+                _id,
+                url,
+                metadata {
+                  dimensions,
+                  lqip,
+                  palette,
+                  ...
+                }
+              }
+            }
+          }
         },
         "books": *[_type == "book" && references(^._id)] {
           ...,
@@ -282,12 +467,43 @@ export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings:
   const authorsRaw = await authClient.fetch(`*[_type == "author"]|order(name asc)`);
   const authors = authorsRaw.filter(filterOutDrafts).map(author => normalizeAuthor<Author>(author));
   const pagesRaw = await authClient.fetch(`*[_type == "page"] {
+    ...,
+    elements[] {
+      ...,
+      _type == "imageElement" => {
         ...,
-        "imageAssets": elements[].value.asset->{
-            ...,
-            metadata
+        value {
+          ..., 
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions,
+              lqip,
+              palette,
+              ...
+            }
+          }
         }
-    }`);
+      },
+      _type == "galleryElement" => {
+        ...,
+        value[] {
+          ..., 
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions,
+              lqip,
+              palette,
+              ...
+            }
+          }
+        }
+      }
+    }
+  }`);
   const pages = pagesRaw.map(page => normalizePage(page));
   const navItems = buildNavItems(bookCategories, publishers, authors, pages);
 
