@@ -15,6 +15,7 @@ const page = {
             of: [
                 { type: "richTextElement" },
                 { type: "imageElement" },
+                { type: "galleryElement" },
                 { type: "titleElement" },
             ]
         },

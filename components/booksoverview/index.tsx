@@ -1,4 +1,4 @@
-import { Box, Flex, Hide, Link, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Hide, Link, useMediaQuery, VStack } from "@chakra-ui/react";
 import H1 from "components/headings/h1";
 import books from "pages/books";
 import React, { useEffect, useMemo, useState } from "react";
@@ -36,7 +36,7 @@ function BooksOverview({ title, filterable, books }: Props) {
     }, [filterable, books, bookFilter]);
 
     return (
-        <Box>
+        <VStack>
             <Flex justifyContent="space-between">
                 {title ? <H1>All books</H1> : null}
                 {filterable && isMobile ? (
@@ -66,7 +66,7 @@ function BooksOverview({ title, filterable, books }: Props) {
                     <BookGallery books={filteredBooks} />
                 </Box>
             </Flex>
-        </Box >
+        </VStack >
     )
 }
 

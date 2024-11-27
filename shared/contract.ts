@@ -59,7 +59,7 @@ export interface IAuthor {
 export type Author = IAuthor;
 export type AuthorWithBooks = IAuthor & { books: BookWithAuthorRef[] };
 
-export type PageElementType = "richTextElement" | "imageElement" | "titleElement" | "highlightedBooksElement" | "joinNewsletterElement";
+export type PageElementType = "richTextElement" | "imageElement" | "galleryElement" | "titleElement" | "highlightedBooksElement" | "joinNewsletterElement";
 
 export interface PageElement {
     type: PageElementType,
@@ -76,6 +76,10 @@ export interface PageElementImage extends PageElement {
     widthType: any;
     asset: any;
     link?: string;
+}
+
+export interface PageElementGallery extends PageElement {
+    value: any;
 }
 
 export interface PageElementTitle extends PageElement {

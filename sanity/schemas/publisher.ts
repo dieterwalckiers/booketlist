@@ -1,4 +1,4 @@
-const book = {
+const publisher = {
     name: 'publisher',
     type: 'document',
     title: 'Publisher',
@@ -15,6 +15,7 @@ const book = {
             of: [
                 { type: "richTextElement" },
                 { type: "imageElement" },
+                { type: "galleryElement" },
                 { type: "titleElement" },
             ]
         },
@@ -30,4 +31,4 @@ const book = {
         },
     ]
 }
-export default book
+export default publisher

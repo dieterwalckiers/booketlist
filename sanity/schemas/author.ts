@@ -15,6 +15,7 @@ const author = {
             of: [
                 { type: "richTextElement" },
                 { type: "imageElement" },
+                { type: "galleryElement" },
                 { type: "titleElement" },
             ]
         },

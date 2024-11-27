@@ -13,11 +13,10 @@ interface IProps {
 const PageElements: React.FC<IProps> = ({ elements, pageTitle, extraProps }) => {
     return (
         <Flex direction="column" alignItems="center">
-            {(elements || []).map((e, i) => {
-                const extraPropsForType = extraProps?.[e.type] || {};
-                console.log("extraPropsForType", extraPropsForType);
+            {(elements || []).map((el, i) => {
+                const extraPropsForType = extraProps?.[el.type] || {};
                 return (
-                    <PageElement pageElement={e} key={`pageEl${pageTitle}${i}`} {...extraPropsForType} />
+                    <PageElement pageElement={el} key={`pageEl${pageTitle}${i}`} {...extraPropsForType} />
                 )
             })}
         </Flex>
