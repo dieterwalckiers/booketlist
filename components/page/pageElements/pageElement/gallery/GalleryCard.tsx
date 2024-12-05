@@ -12,21 +12,31 @@ import React from "react";
 import { client } from "../../../../../sanity/lib/client";
 
 interface Props {
-    imageData: any;
+    asset: any;
     cardWidthMd: string;
+    link?: string;
 }
 
 const GalleryCard: React.FC<Props> = ({
-    imageData,
+    asset,
     cardWidthMd,
+    link,
 }) => {
 
     const imageProps: Record<string, any> = useNextSanityImage(
         client,
-        imageData,
+        asset,
     );
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const onClickImage = () => {
+        if (link) {
+            window.open(link, "_blank");
+            return;
+        }
+        onOpen();
+    };
 
     return (
         <>
@@ -42,9 +52,9 @@ const GalleryCard: React.FC<Props> = ({
                     style={{ width: "100%", height: 'auto' }}
                     sizes="(max-width: 768px) 100vw, 50vw, 33vw"
                     placeholder="blur"
-                    blurDataURL={imageData.asset.metadata.lqip}
+                    blurDataURL={asset.metadata.lqip}
                     alt="" // TODO add alt text to cms
-                    onClick={() => onOpen()}
+                    onClick={onClickImage}
                 />
             </Flex>
             <Modal isOpen={isOpen} onClose={onClose} size="6xl" >
@@ -55,7 +65,7 @@ const GalleryCard: React.FC<Props> = ({
                         style={{ width: "100%", height: 'auto' }}
                         sizes="(max-width: 768px) 98vw, 1152px"
                         placeholder="blur"
-                        blurDataURL={imageData.asset.metadata.lqip}
+                        blurDataURL={asset.metadata.lqip}
                         alt="" // TODO add alt text to cms
                     />
                 </ModalContent>

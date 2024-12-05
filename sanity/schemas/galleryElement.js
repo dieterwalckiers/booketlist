@@ -1,7 +1,7 @@
 const galleryElement = {
   type: "object",
   name: "galleryElement",
-  title: "Gallerij",
+  title: "Gallery",
   fields: [
     {
       name: "value",
@@ -9,7 +9,7 @@ const galleryElement = {
       type: "array",
       of: [
         {
-          type: "image",
+          type: "galleryImage",
         },
       ],
     },
@@ -21,7 +21,7 @@ const galleryElement = {
     prepare(selection) {
       return {
         media: selection.image,
-        title: "Gallerij",
+        title: "Gallery",
       };
     },
   },

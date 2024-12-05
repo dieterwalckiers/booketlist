@@ -71,11 +71,9 @@ export interface PageElementRichText extends PageElement {
 
 export interface PageElementImage extends PageElement {
     value: any;
-    width: any;
-    height: any;
-    widthType: any;
     asset: any;
     link?: string;
+    widthPercentage?: number;
 }
 
 export interface PageElementGallery extends PageElement {

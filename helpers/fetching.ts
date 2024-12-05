@@ -37,17 +37,20 @@ export async function fetchAllBooks(): Promise<Book[]> {
             _type == "galleryElement" => {
               ...,
               value[] {
-                ..., 
-                asset->{
-                  _id,
-                  url,
-                  metadata {
-                    dimensions,
-                    lqip,
-                    palette,
-                    ...
+                ...,
+                value {
+                  ..., 
+                  asset->{
+                    _id,
+                    url,
+                    metadata {
+                      dimensions,
+                      lqip,
+                      palette,
+                      ...
+                    }
                   }
-                }
+                },
               }
             }
           }
@@ -120,17 +123,20 @@ export async function fetchHome(): Promise<Home> {
       _type == "galleryElement" => {
         ...,
         value[] {
-          ..., 
-          asset->{
-            _id,
-            url,
-            metadata {
-              dimensions,
-              lqip,
-              palette,
-              ...
+          ...,
+          value {
+            ..., 
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions,
+                lqip,
+                palette,
+                ...
+              }
             }
-          }
+          },
         }
       }
     }
@@ -170,17 +176,20 @@ export async function fetchBook(slug: string): Promise<Book> {
             _type == "galleryElement" => {
               ...,
               value[] {
-                ..., 
-                asset->{
-                  _id,
-                  url,
-                  metadata {
-                    dimensions,
-                    lqip,
-                    palette,
-                    ...
+                ...,
+                value {
+                  ..., 
+                  asset->{
+                    _id,
+                    url,
+                    metadata {
+                      dimensions,
+                      lqip,
+                      palette,
+                      ...
+                    }
                   }
-                }
+                },
               }
             }
           }
@@ -230,17 +239,20 @@ export async function fetchPage(slug: string): Promise<Page> {
         _type == "galleryElement" => {
           ...,
           value[] {
-            ..., 
-            asset->{
-              _id,
-              url,
-              metadata {
-                dimensions,
-                lqip,
-                palette,
-                ...
+            ...,
+            value {
+              ..., 
+              asset->{
+                _id,
+                url,
+                metadata {
+                  dimensions,
+                  lqip,
+                  palette,
+                  ...
+                }
               }
-            }
+            },
           }
         }
       }
@@ -285,17 +297,20 @@ export async function fetchBooksForCategorySlug(categorySlug: string): Promise<B
             _type == "galleryElement" => {
               ...,
               value[] {
-                ..., 
-                asset->{
-                  _id,
-                  url,
-                  metadata {
-                    dimensions,
-                    lqip,
-                    palette,
-                    ...
+                ...,
+                value {
+                  ..., 
+                  asset->{
+                    _id,
+                    url,
+                    metadata {
+                      dimensions,
+                      lqip,
+                      palette,
+                      ...
+                    }
                   }
-                }
+                },
               }
             }
           }
@@ -342,17 +357,20 @@ export async function fetchAuthorWithBooks(slug: string): Promise<AuthorWithBook
           _type == "galleryElement" => {
             ...,
             value[] {
-              ..., 
-              asset->{
-                _id,
-                url,
-                metadata {
-                  dimensions,
-                  lqip,
-                  palette,
-                  ...
+              ...,
+              value {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
                 }
-              }
+              },
             }
           }
         },
@@ -399,17 +417,20 @@ export async function fetchPublisher(slug: string): Promise<Publisher> {
           _type == "galleryElement" => {
             ...,
             value[] {
-              ..., 
-              asset->{
-                _id,
-                url,
-                metadata {
-                  dimensions,
-                  lqip,
-                  palette,
-                  ...
+              ...,
+              value {
+                ..., 
+                asset->{
+                  _id,
+                  url,
+                  metadata {
+                    dimensions,
+                    lqip,
+                    palette,
+                    ...
+                  }
                 }
-              }
+              },
             }
           }
         }
@@ -489,17 +510,20 @@ export async function fetchMenuProps(): Promise<{ navItems: NavItem[], settings:
       _type == "galleryElement" => {
         ...,
         value[] {
-          ..., 
-          asset->{
-            _id,
-            url,
-            metadata {
-              dimensions,
-              lqip,
-              palette,
-              ...
+          ...,
+          value {
+            ..., 
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions,
+                lqip,
+                palette,
+                ...
+              }
             }
-          }
+          },
         }
       }
     }

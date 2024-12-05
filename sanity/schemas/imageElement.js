@@ -1,7 +1,7 @@
 const imageElement = {
   type: "object",
   name: "imageElement",
-  title: "Afbeelding",
+  title: "Image",
   fields: [
     {
       name: "value",
@@ -12,6 +12,12 @@ const imageElement = {
       name: "link",
       title: "Link",
       type: "string",
+    },
+    {
+      name: "widthPercentage",
+      title: "With percentage",
+      type: "number",
+      validation: Rule => Rule.min(1).max(100),
     },
   ],
   preview: {

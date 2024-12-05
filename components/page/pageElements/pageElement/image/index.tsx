@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import { useNextSanityImage } from "next-sanity-image";
 import * as React from "react";
@@ -26,11 +26,13 @@ const PageElement: React.FC<IProps> = ({ element }) => {
         window.open(element.link, "_blank");
     }
 
+    const width = element.widthPercentage ? `${element.widthPercentage}%` : "100%";
+
     return imageData?.asset && (
-        <Box w="100%">
+        <Flex w="100%" justifyContent="center" >
             <Image
                 {...imageProps as any}
-                style={{ width: "100%", height: 'auto', cursor: element.link ? "pointer" : "default" }}
+                style={{ width, height: 'auto', cursor: element.link ? "pointer" : "default" }}
                 sizes="(max-width: 48em) 100vw,
                         600px"
                 placeholder="blur"
@@ -38,7 +40,7 @@ const PageElement: React.FC<IProps> = ({ element }) => {
                 alt="" // TODO add alt text to cms
                 onClick={clickImg}
             />
-        </Box >
+        </Flex >
     );
 }
 

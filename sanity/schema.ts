@@ -4,6 +4,7 @@ import author from "./schemas/author";
 import book from "./schemas/book";
 import bookCategory from "./schemas/bookCategory";
 import galleryElement from "./schemas/galleryElement";
+import galleryImage from "./schemas/galleryImage";
 import highlightedBooksElement from "./schemas/highlightedBooksElement";
 import home from "./schemas/home";
 import imageElement from "./schemas/imageElement";
@@ -27,6 +28,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     richTextElement,
     imageElement,
     galleryElement,
+    galleryImage,
     titleElement,
     highlightedBooksElement,
     joinNewsletterElement,

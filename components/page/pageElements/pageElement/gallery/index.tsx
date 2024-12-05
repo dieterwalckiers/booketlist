@@ -35,7 +35,8 @@ const PageElement: React.FC<IProps> = ({ element }) => {
                     return (
                         <GalleryCard
                             key={`gallery${index}`}
-                            imageData={imageData}
+                            asset={imageData.value?.asset}
+                            link={imageData.link}
                             cardWidthMd={cardWidthMd}
                         />
                     )
