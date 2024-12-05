@@ -134,19 +134,19 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                     placeholder="Type or select an author"
                 />
             </FilterPanelSection>
-            <FilterPanelSection title="Age">
-                <FilterFromToAge
-                    from={bookFilter.ageFrom}
-                    to={bookFilter.ageTo}
-                    onChange={onUpdateFromToAge}
-                />
-            </FilterPanelSection>
             <FilterPanelSection title="Illustrators">
                 <FilterAutocompleteWithNoSSR
                     items={acItemsFromAuthors(illustrators)}
                     selectedValues={(bookFilter.illustrators) || []}
                     onUpdateSelectedValues={onUpdateIllustrators}
                     placeholder="Type or select an illustrator"
+                />
+            </FilterPanelSection>
+            <FilterPanelSection title="Age">
+                <FilterFromToAge
+                    from={bookFilter.ageFrom}
+                    to={bookFilter.ageTo}
+                    onChange={onUpdateFromToAge}
                 />
             </FilterPanelSection>
             <FilterPanelSection title="Publishers">

@@ -1,8 +1,7 @@
 import { Flex } from "@chakra-ui/react";
-import React, { useEffect, useMemo } from "react";
-import { BookFilter, IBook } from "shared/contract";
+import React from "react";
+import { IBook } from "shared/contract";
 
-import { filterBooks } from "../filterpanel/helpers";
 import BookCard from "./bookcard";
 
 interface IProps {
