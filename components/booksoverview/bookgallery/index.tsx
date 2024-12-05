@@ -16,6 +16,7 @@ const BookGallery: React.FC<IProps> = ({ books }) => {
             direction={{ base: "column", md: "row" }}
             flexWrap="wrap"
             justifyContent="center"
+            alignItems="stretch"
         >
             {(books || []).map((book, i) => (
                 <BookCard key={`book${i}${book.slug}`} book={book} />

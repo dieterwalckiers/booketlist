@@ -22,15 +22,18 @@ const BookCard: React.FC<IProps> = ({ book }) => {
         <Link
             href={`/books/${book.slug}`}
             as={NextLink}
+            mx={{ base: 0, md: 6 }}
+            my={{ base: 0, md: 6 }}
+            display="block"
         >
             <Flex
                 width={{ base: "100%", md: "250px" }}
                 direction="column"
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
-                mx={{ base: 0, md: 6 }}
-                my={{ base: 0, md: 6 }}
                 cursor="pointer"
+                className="bookImgAndTitle"
+                height="100%"
             >
                 {book.cover?.asset && (
                     <Image
