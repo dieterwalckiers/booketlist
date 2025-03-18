@@ -3,30 +3,36 @@ import BooksOverview from "components/booksoverview";
 import H1 from "components/headings/h1";
 import Layout from "components/layout";
 import { NavItem } from "components/navbar/contract";
-import { fetchAllBooks, fetchMenuProps } from "helpers/fetching";
+import { fetchAllBooks, fetchAllLanguageRights, fetchMenuProps } from "helpers/fetching";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { Book } from "shared/contract";
+import { Book, LanguageRight } from "shared/contract";
 
 interface Props {
     books: Book[];
+    languageRights: LanguageRight[];
     navItems: NavItem[];
     settings: any;
 }
 
 export async function getStaticProps({ params }) {
     const { navItems, settings } = await fetchMenuProps();
-    const books = await fetchAllBooks();
+    const [books, languageRights] = await Promise.all([
+        fetchAllBooks(),
+        fetchAllLanguageRights(),
+    ]);
+
     return {
         props: {
             navItems,
             settings,
             books,
+            languageRights,
         }
     };
 }
 
-const Books: React.FC<Props> = ({ books, navItems, settings }) => {
+const Books: React.FC<Props> = ({ books, languageRights, navItems, settings }) => {
 
     return (
         <>
@@ -36,6 +42,7 @@ const Books: React.FC<Props> = ({ books, navItems, settings }) => {
             <Layout navItems={navItems} settings={settings}>
                 <BooksOverview
                     books={books}
+                    languageRights={languageRights}
                     filterable={true}
                 />
             </Layout>
@@ -44,4 +51,4 @@ const Books: React.FC<Props> = ({ books, navItems, settings }) => {
     )
 }
 
-export default Books
+export default Books;

@@ -17,21 +17,21 @@ import settings from "./schemas/settings";
 import titleElement from "./schemas/titleElement";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [
-    home,
-    settings,
-    book,
-    bookCategory,
-    author,
-    publisher,
-    page,
-    richTextElement,
-    imageElement,
-    galleryElement,
-    galleryImage,
-    titleElement,
-    highlightedBooksElement,
-    joinNewsletterElement,
-    languageRight,
-  ],
+    types: [
+        home,
+        settings,
+        book,
+        bookCategory,
+        author,
+        publisher,
+        page,
+        richTextElement,
+        imageElement,
+        galleryElement,
+        galleryImage,
+        titleElement,
+        highlightedBooksElement,
+        joinNewsletterElement,
+        languageRight,
+    ],
 }

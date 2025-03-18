@@ -50,9 +50,10 @@ const book = {
             title: "Age",
         },
         {
-            name: 'languageRights',
+            name: 'soldLanguageRights',
+            title: "Sold language rights",
             type: "array",
-            of: [{ type: "languageRight" }],
+            of: [{ type: "reference", to: { type: "languageRight" } }],
         },
         {
             name: 'isHighlighted',

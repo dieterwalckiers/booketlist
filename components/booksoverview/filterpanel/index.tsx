@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, Link, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 import dynamic from 'next/dynamic'
 import React, { useCallback, useMemo } from "react";
-import { Author, Book, BookCategory, BookFilter, IBook, Language, Publisher } from "shared/contract";
+import { Author, Book, BookCategory, BookFilter, IBook, LanguageRight, Publisher } from "shared/contract";
 
 import { AcItem } from "./filterautocomplete";
 import FilterCheckboxList, { Checkable } from "./filtercheckboxlist";
@@ -14,6 +14,7 @@ const FilterAutocompleteWithNoSSR = dynamic(import("./filterautocomplete"), { //
     ssr: false
 })
 interface Props {
+    languageRights: LanguageRight[];
     books: Book[];
     bookFilter: BookFilter;
     onUpdateFilter: (bookFilter: BookFilter) => void;
@@ -23,13 +24,6 @@ function checkablesFromBookCategories(bookCategories: BookCategory[]): Checkable
     return bookCategories.map((bookCategory) => ({
         id: bookCategory.slug,
         name: bookCategory.name,
-    }))
-}
-
-function checkablesFromLanguages(languages: Language[]): Checkable[] {
-    return languages.map((language) => ({
-        id: language.code,
-        name: language.name,
     }))
 }
 
@@ -51,25 +45,25 @@ function acItemsFromPublishers(publishers: Publisher[]): AcItem[] {
     }
 }
 
-const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => {
+function acItemsFromAvailableLanguageRights(availableLanguageRights: LanguageRight[]): AcItem[] {
+    return availableLanguageRights.map((availableLanguageRight) => ({
+        label: availableLanguageRight.name,
+        value: availableLanguageRight.code,
+    }))
+}
+
+const FilterPanel: React.FC<Props> = ({ languageRights, books, bookFilter, onUpdateFilter }) => {
 
     const bookCategories = useMemo(() => getUniqueCategories(books), [books]);
     const authors = useMemo(() => getUniqueAuthors(books), [books]);
     const illustrators = useMemo(() => getUniqueIllustrators(books), [books]);
     const publishers = useMemo(() => getUniquePublishers(books), [books]);
-    const availableLanguageRights = useMemo(() => getUniqueAvailableLanguageRights(books), [books]);
+    const availableLanguageRights = useMemo(() => getUniqueAvailableLanguageRights(languageRights, books), [languageRights, books]);
 
     const onUpdateBookCategories = useCallback((slugs: string[]) => {
         onUpdateFilter({
             ...bookFilter,
             bookCats: slugs,
-        })
-    }, [bookFilter, onUpdateFilter]);
-
-    const onUpdateBookAvailableLanguageRights = useCallback((codes: string[]) => {
-        onUpdateFilter({
-            ...bookFilter,
-            avLangRights: codes,
         })
     }, [bookFilter, onUpdateFilter]);
 
@@ -103,6 +97,13 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
         onUpdateFilter({
             ...bookFilter,
             publishers: slugs,
+        })
+    }, [bookFilter, onUpdateFilter]);
+
+    const onUpdateAvLanguageRights = useCallback((avLangRights: string[]) => {
+        onUpdateFilter({
+            ...bookFilter,
+            avLangRights,
         })
     }, [bookFilter, onUpdateFilter]);
 
@@ -158,11 +159,11 @@ const FilterPanel: React.FC<Props> = ({ books, bookFilter, onUpdateFilter }) => 
                 />
             </FilterPanelSection>
             <FilterPanelSection title="Available languages">
-                <FilterCheckboxList
-                    id="availableLanguageRights"
-                    checkables={checkablesFromLanguages(availableLanguageRights)}
-                    checkedIds={(bookFilter.avLangRights) || []}
-                    onUpdateCheckables={onUpdateBookAvailableLanguageRights}
+                <FilterAutocompleteWithNoSSR
+                    items={acItemsFromAvailableLanguageRights(availableLanguageRights)}
+                    selectedValues={(bookFilter.avLangRights) || []}
+                    onUpdateSelectedValues={onUpdateAvLanguageRights}
+                    placeholder="Type or select a language"
                 />
             </FilterPanelSection>
         </Box>

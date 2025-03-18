@@ -2,7 +2,7 @@ import { Box, Flex, Hide, Link, useMediaQuery, VStack } from "@chakra-ui/react";
 import H1 from "components/headings/h1";
 import books from "pages/books";
 import React, { useEffect, useMemo, useState } from "react";
-import { Book, BookFilter, BookWithAuthorRef, IBook } from "shared/contract";
+import { Book, BookFilter, BookWithAuthorRef, IBook, LanguageRight } from "shared/contract";
 
 import BookGallery from "./bookgallery";
 import FilterPanel from "./filterpanel";
@@ -11,10 +11,11 @@ import { filterBooks } from "./filterpanel/helpers";
 interface Props {
     title?: string;
     books: Array<IBook>;
+    languageRights: LanguageRight[];
     filterable?: boolean;
 }
 
-function BooksOverview({ title, filterable, books }: Props) {
+function BooksOverview({ title, filterable, books, languageRights }: Props) {
     const [isMobile] = useMediaQuery("(max-width: 48em)");
     const [filterVisible, setFilterVisible] = useState<boolean>(!isMobile && filterable);
 
@@ -57,6 +58,7 @@ function BooksOverview({ title, filterable, books }: Props) {
             <Flex direction={{ base: "column", md: "row" }}>
                 {filterVisible && (
                     <FilterPanel
+                        languageRights={languageRights}
                         books={filteredBooks as Book[]}
                         bookFilter={bookFilter}
                         onUpdateFilter={setBookFilter}

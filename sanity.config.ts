@@ -56,7 +56,7 @@ export default defineConfig({
           //   ),
           orderableDocumentListDeskItem({
             type: "bookCategory",
-            title: "Book categories", // pick back up: make ordering work (just realized I need structureTool instead of deskTool, but it's not rendering just yet, if all else fails stash local work and start again)
+            title: "Book categories",
             // Required if using multiple lists of the same 'type'
             // id: 'orderable-en-projects',
             // See notes on adding a `filter` below
@@ -82,6 +82,11 @@ export default defineConfig({
             .title("Publishers")
             .child(
               S.documentTypeList("publisher")
+            ),
+          S.listItem()
+            .title("Languages")
+            .child(
+              S.documentTypeList("languageRight")
             ),
 
         ])

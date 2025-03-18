@@ -1,4 +1,4 @@
-import { Author, Book, BookCategory, BookFilter, Language, Publisher } from "shared/contract";
+import { Author, Book, BookCategory, BookFilter, LanguageRight, Publisher } from "shared/contract";
 
 export function getUniqueCategories(books: Book[]): BookCategory[] {
     return books.reduce((acc, book) => {
@@ -44,15 +44,14 @@ export function getUniquePublishers(books: Book[]): Publisher[] {
     }, [] as Publisher[]);
 }
 
-export function getUniqueAvailableLanguageRights(books: Book[]): Language[] {
-    return books.reduce((acc, book) => {
-        for (const language of book.availableLanguageRights) {
-            if (!(acc.some(l => l.code === language.code))) {
-                acc.push(language);
-            }
+export function getUniqueAvailableLanguageRights(languageRights: LanguageRight[], books: Book[]): LanguageRight[] {
+    const languageRightCount = books.reduce((acc, book) => {
+        for (const language of book.soldLanguageRights) {
+            acc[language.code] = (acc[language.code] || 0) + 1;
         }
         return acc;
-    }, [] as Language[]);
+    }, {} as Record<string, number>);
+    return languageRights.filter(lang => languageRightCount[lang.code] !== books.length);
 }
 
 export function filterBooks(books: Book[], bookFilter: BookFilter) {
@@ -81,7 +80,7 @@ export function filterBooks(books: Book[], bookFilter: BookFilter) {
             }
         }
         if (bookFilter.avLangRights && bookFilter.avLangRights.length > 0) {
-            if (!bookFilter.avLangRights.some(lang => book.availableLanguageRights.some(bookLang => bookLang.code === lang))) {
+            if (bookFilter.avLangRights.some(a => book.soldLanguageRights.some(b => b.code === a))) {
                 return false;
             }
         }

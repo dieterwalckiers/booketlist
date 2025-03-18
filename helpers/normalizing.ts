@@ -1,4 +1,4 @@
-import { Book, BookCategory, Home, IAuthor, Page, PageElement, Publisher } from "shared/contract";
+import { Book, BookCategory, Home, IAuthor, LanguageRight, Page, PageElement, Publisher } from "shared/contract";
 
 import { getLangName } from "./lang";
 
@@ -11,12 +11,19 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
         authors: skipNormAuthor ? (book.authors || []) : (book.authors || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         illustrators: skipNormAuthor ? (book.illustrators || []) : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         publisher: (skipNormAuthor || !book.publisher ? book.publisher : normalizePublisher(book.publisher)) || null,
-        availableLanguageRights: skipNormAuthor ? (book.availableLanguageRights || []) : (book.availableLanguageRights || []).map(l => ({
-            code: l.toLowerCase(),
-            name: getLangName(l.toLowerCase()),
+        soldLanguageRights: skipNormAuthor ? (book.soldLanguageRights || []) : (book.soldLanguageRights || []).map(({ languageCode }) => ({
+            code: languageCode,
+            name: getLangName(languageCode),
         })),
         age: parseInt(book.age),
     };
+}
+
+export function normalizeLanguageRight(languageRight: any): LanguageRight {
+    return {
+        code: languageRight.languageCode,
+        name: getLangName(languageRight.languageCode),
+    }
 }
 
 

@@ -1,9 +1,9 @@
 import { NavItem } from "components/navbar/contract";
 import { buildNavItems } from "components/navbar/helpers";
-import { Author, AuthorWithBooks, Book, Home, Page, Publisher } from "shared/contract";
+import { Author, AuthorWithBooks, Book, Home, LanguageRight, Page, Publisher } from "shared/contract";
 
 import { client } from "../sanity/lib/client";
-import { filterOutDrafts, normalizeAuthor, normalizeBook, normalizeBookCategory, normalizeHome, normalizePage, normalizePublisher } from "./normalizing";
+import { filterOutDrafts, normalizeAuthor, normalizeBook, normalizeBookCategory, normalizeHome, normalizeLanguageRight, normalizePage, normalizePublisher } from "./normalizing";
 
 export async function fetchAllBooks(): Promise<Book[]> {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN });
@@ -56,7 +56,7 @@ export async function fetchAllBooks(): Promise<Book[]> {
           }
         },
         bookCategory->{name,slug},
-        'availableLanguageRights': languageRights[isSold != true].languageCode,
+        soldLanguageRights[]->{languageCode},
         cover {
           asset->{
             ...,
@@ -65,8 +65,15 @@ export async function fetchAllBooks(): Promise<Book[]> {
         }
       }
     `);
+
   return booksRaw.filter(filterOutDrafts).map(book => normalizeBook(book));
 }
+
+export async function fetchAllLanguageRights(): Promise<LanguageRight[]> {
+    const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN });
+    const languageRightsRaw = await authClient.fetch(`*[_type == "languageRight"]{ languageCode }`);
+    return languageRightsRaw.map(languageRight => normalizeLanguageRight(languageRight));
+  }
 
 export async function fetchAllBookSlugs() {
   const authClient = client.withConfig({ useCdn: true, token: process.env.SANITY_API_READ_TOKEN })
@@ -194,7 +201,7 @@ export async function fetchBook(slug: string): Promise<Book> {
             }
           }
         },
-        'availableLanguageRights': languageRights[isSold != true].languageCode,
+        soldLanguageRights[]->{languageCode},
         cover {
           asset->{
             ...,
@@ -316,7 +323,7 @@ export async function fetchBooksForCategorySlug(categorySlug: string): Promise<B
           }
         },
         bookCategory->{name,slug},
-        'availableLanguageRights': languageRights[isSold != true].languageCode,
+        soldLanguageRights[]->{languageCode},
         cover {
           asset->{
             ...,

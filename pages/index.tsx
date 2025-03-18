@@ -1,8 +1,7 @@
 
-import { Flex } from "@chakra-ui/react";
 import Layout from "components/layout";
 import PageElements from "components/page/pageElements";
-import { fetchHighlightedBooks, fetchHome, fetchMenuProps } from "helpers/fetching";
+import { fetchAllLanguageRights, fetchHighlightedBooks, fetchHome, fetchMenuProps } from "helpers/fetching";
 import Head from "next/head";
 import Script from "next/script";
 
@@ -27,9 +26,11 @@ export default function IndexPage({ navItems, settings, home, highlightedBooks }
 }
 
 export async function getStaticProps() {
-    const { navItems, settings } = await fetchMenuProps();
-    const home = await fetchHome();
-    const highlightedBooks = await fetchHighlightedBooks();
+    const [{ navItems, settings }, home, highlightedBooks] = await Promise.all([
+        fetchMenuProps(),
+        fetchHome(),
+        fetchHighlightedBooks(),
+    ]);
     return {
         props: {
             navItems,

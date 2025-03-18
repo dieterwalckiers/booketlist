@@ -17,13 +17,13 @@ export type Book = IBook & {
     authors: Author[],
     illustrators: Author[],
     publisher: Publisher,
-    availableLanguageRights: Language[],
+    soldLanguageRights: LanguageRight[],
     additionalImages: any[],
 };
 
 export type BookWithAuthorRef = IBook & { authors: any };
 
-export type Language = {
+export type LanguageRight = {
     code: string;
     name: string;
 }
