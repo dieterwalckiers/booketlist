@@ -2,10 +2,10 @@ import { Box } from "@chakra-ui/react";
 import BooksOverview from "components/booksoverview";
 import H1 from "components/headings/h1";
 import Layout from "components/layout";
-import { fetchAllBookCategorySlugs, fetchBookCategory, fetchBooksForCategorySlug, fetchMenuProps } from "helpers/fetching";
+import { fetchAllBookCategorySlugs, fetchAllLanguageRights, fetchBookCategory, fetchBooksForCategorySlug, fetchMenuProps } from "helpers/fetching";
 import Head from "next/head";
 
-export default function BookCategoryPage({ navItems, settings, books, bookCategory }) {
+export default function BookCategoryPage({ navItems, settings, books, bookCategory, languageRights }) {
 
     return (
         <>
@@ -15,7 +15,7 @@ export default function BookCategoryPage({ navItems, settings, books, bookCatego
             <Layout navItems={navItems} settings={settings}>
                 <Box>
                     <H1>{bookCategory.name}</H1>
-                    {books && <BooksOverview books={books} filterable={true} />}
+                    {books && <BooksOverview books={books} filterable languageRights={languageRights} />}
                 </Box>
             </Layout>
         </>
@@ -27,6 +27,7 @@ export async function getStaticProps({ params }) {
     const { navItems, settings } = await fetchMenuProps();
     const bookCategory = await fetchBookCategory(params.slug);
     const books = await fetchBooksForCategorySlug(params.slug);
+    const languageRights = await fetchAllLanguageRights();
 
     return {
         props: {
@@ -34,6 +35,7 @@ export async function getStaticProps({ params }) {
             settings,
             books,
             bookCategory,
+            languageRights,
         }
     };
 }

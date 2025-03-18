@@ -11,8 +11,8 @@ import { filterBooks } from "./filterpanel/helpers";
 interface Props {
     title?: string;
     books: Array<IBook>;
-    languageRights: LanguageRight[];
     filterable?: boolean;
+    languageRights?: LanguageRight[]; // MUST be passed if filterable is true
 }
 
 function BooksOverview({ title, filterable, books, languageRights }: Props) {

@@ -43,7 +43,7 @@ const Books: React.FC<Props> = ({ books, languageRights, navItems, settings }) =
                 <BooksOverview
                     books={books}
                     languageRights={languageRights}
-                    filterable={true}
+                    filterable
                 />
             </Layout>
         </>
