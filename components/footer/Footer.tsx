@@ -15,13 +15,16 @@ export default function SmallCentered({ }) {
                 justify={'center'}
                 align={'center'}
                 py={8}
+                direction={{ base: "column", md: "row" }}
             >
                 <Box mr={6}>
                     BOOKETLIST agency by Sarah Claeys
                 </Box>
-                <Box mr={6}>
-                    |
-                </Box>
+                <Show above="md">
+                    <Box mr={6}>
+                        |
+                    </Box>
+                </Show>
                 <a href="mailto:hello@booketlistagency.com">
                     <Flex mr={6} alignItems="center">
                         hello

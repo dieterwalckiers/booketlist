@@ -4,7 +4,6 @@ import Navbar from "components/navbar";
 import { NavItem } from "components/navbar/contract";
 import React, { useMemo } from "react";
 
-import { client } from "../../sanity/lib/client";
 import theme from "../../theme";
 
 interface Props {
@@ -40,4 +39,3 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
 }
 
 export default Layout;
-
