@@ -5,10 +5,10 @@ import { Author, Book, BookCategory, BookFilter, IBook, LanguageRight, Publisher
 
 import { AcItem } from "./filterautocomplete";
 import FilterCheckboxList, { Checkable } from "./filtercheckboxlist";
+import FilterFreeTextSearch from "./filterfreetextsearch";
 import FilterFromToAge from "./filterfromtoage";
 import FilterPanelSection from "./filterpanelsection";
 import { getUniqueAuthors, getUniqueAvailableLanguageRights, getUniqueCategories, getUniqueIllustrators, getUniquePublishers } from "./helpers";
-import FilterFreeTextSearch from "./filterfreetextsearch";
 
 
 const FilterAutocompleteWithNoSSR = dynamic(import("./filterautocomplete"), { // https://github.com/chakra-ui/chakra-ui/issues/3020

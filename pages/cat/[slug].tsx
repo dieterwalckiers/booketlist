@@ -12,7 +12,7 @@ export default function BookCategoryPage({ navItems, settings, books, bookCatego
             <Head>
                 <title>{bookCategory.name} | Booketlist Agency</title>
             </Head>
-            <Layout navItems={navItems} settings={settings}>
+            <Layout navItems={navItems} settings={settings} alignLeft>
                 <Box>
                     <H1>{bookCategory.name}</H1>
                     {books && <BooksOverview books={books} filterable languageRights={languageRights} />}
