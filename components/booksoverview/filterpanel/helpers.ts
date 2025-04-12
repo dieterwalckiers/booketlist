@@ -59,6 +59,11 @@ export function filterBooks(books: Book[], bookFilter: BookFilter) {
         return books;
     }
     return books.filter((book) => {
+        if (bookFilter.searchString) {
+            if (!book.searchableDataSerialized.toLowerCase().includes(bookFilter.searchString.toLowerCase())) {
+                return false;
+            }
+        }
         if (bookFilter.bookCats && bookFilter.bookCats.length > 0) {
             if (!bookFilter.bookCats.includes(book.bookCategory.slug)) {
                 return false;

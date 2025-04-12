@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, Link, Text} from "@chakra-ui/react";
 import dynamic from 'next/dynamic'
 import React, { useCallback, useMemo } from "react";
 import { Author, Book, BookCategory, BookFilter, IBook, LanguageRight, Publisher } from "shared/contract";
@@ -8,6 +8,7 @@ import FilterCheckboxList, { Checkable } from "./filtercheckboxlist";
 import FilterFromToAge from "./filterfromtoage";
 import FilterPanelSection from "./filterpanelsection";
 import { getUniqueAuthors, getUniqueAvailableLanguageRights, getUniqueCategories, getUniqueIllustrators, getUniquePublishers } from "./helpers";
+import FilterFreeTextSearch from "./filterfreetextsearch";
 
 
 const FilterAutocompleteWithNoSSR = dynamic(import("./filterautocomplete"), { // https://github.com/chakra-ui/chakra-ui/issues/3020
@@ -110,7 +111,7 @@ const FilterPanel: React.FC<Props> = ({ languageRights, books, bookFilter, onUpd
     const filterAvailable = true;
 
     return filterAvailable ? (
-        <Box w={{ base: "100vw", md: "280px" }} className="filterpanel" >
+        <Box w={{ base: "calc(100vw - 2rem)", md: "280px" }} className="filterpanel" flexShrink={0} >
             <Flex alignItems="center">
                 <Heading as="h2" color="#444" fontSize="xl">Filter</Heading>
                 {Object.keys(bookFilter).length ? (
@@ -119,6 +120,12 @@ const FilterPanel: React.FC<Props> = ({ languageRights, books, bookFilter, onUpd
                     </Link>
                 ) : null}
             </Flex>
+            <FilterPanelSection title="Search">
+               <FilterFreeTextSearch
+                    searchString={bookFilter.searchString || ""}
+                    onUpdateSearchString={(searchString) => onUpdateFilter({ ...bookFilter, searchString })}
+               />
+            </FilterPanelSection>
             <FilterPanelSection title="Type">
                 <FilterCheckboxList
                     id="bookCat"

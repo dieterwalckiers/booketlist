@@ -10,9 +10,10 @@ interface Props {
     navItems: NavItem[];
     settings: any;
     children: React.ReactNode;
+    alignLeft?: boolean
 }
 
-const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
+const Layout: React.FC<Props> = ({ navItems, settings, children, alignLeft }) => {
 
     const logoData = useMemo(() => settings?.logo, [settings])
 
@@ -29,6 +30,8 @@ const Layout: React.FC<Props> = ({ navItems, settings, children }) => {
                     id="content"
                     pt={{ base: 2, md: 4 }}
                     px={{ base: 4, md: 0 }}
+                    display="flex"
+                    justifyContent={alignLeft ? "flex-start" : "center"}
                 >
                     {children}
                 </Box>

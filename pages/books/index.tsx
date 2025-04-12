@@ -39,7 +39,7 @@ const Books: React.FC<Props> = ({ books, languageRights, navItems, settings }) =
             <Head>
                 <title>Books | Booketlist Agency</title>
             </Head>
-            <Layout navItems={navItems} settings={settings}>
+            <Layout navItems={navItems} settings={settings} alignLeft>
                 <BooksOverview
                     books={books}
                     languageRights={languageRights}

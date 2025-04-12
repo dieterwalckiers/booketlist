@@ -11,7 +11,7 @@ const FilterPanelSection: React.FC<Props> = ({
     children,
 }) => {
     return (
-        <Box mt={4} mb={4} border="1px solid #ddd" borderRadius={4} px={2}>
+        <Box mt={4} mb={4} p={2} border="1px solid #ddd" borderRadius={4} px={2}>
             <Text
                 p={1}
                 fontSize="sm"

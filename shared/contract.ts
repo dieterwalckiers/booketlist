@@ -19,6 +19,7 @@ export type Book = IBook & {
     publisher: Publisher,
     soldLanguageRights: LanguageRight[],
     additionalImages: any[],
+    searchableDataSerialized?: string,
 };
 
 export type BookWithAuthorRef = IBook & { authors: any };
@@ -36,6 +37,7 @@ export type BookFilter = {
     avLangRights?: string[]; // codes
     ageFrom?: number;
     ageTo?: number;
+    searchString?: string;
 }
 export interface BookCategory {
     name: string;

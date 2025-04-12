@@ -4,7 +4,7 @@ import { getLangName } from "./lang";
 
 export function normalizeBook(book: any, skipNormAuthor = false): Book {
 
-    return {
+    const normalizedBook = {
         ...book,
         bookCategory: normalizeBookCategory(book.bookCategory),
         slug: book.slug?.current || null,
@@ -16,7 +16,9 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
             name: getLangName(languageCode),
         })),
         age: parseInt(book.age),
-    };
+    } as Book;
+    normalizedBook.searchableDataSerialized = `${normalizedBook.title}${normalizedBook.authors.map(a => a.name).join(", ")}${normalizedBook.illustrators.map(i => i.name).join(", ")}${normalizedBook.publisher?.name || ""}${normalizedBook.bookCategory?.name || ""}`;
+    return normalizedBook;
 }
 
 export function normalizeLanguageRight(languageRight: any): LanguageRight {
