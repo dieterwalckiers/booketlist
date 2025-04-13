@@ -14,6 +14,12 @@ const book = {
             validation: Rule => Rule.required(),
         },
         {
+            name: 'originalTitle',
+            type: 'string',
+            title: 'Original title',
+            description: "Used in search",
+        },
+        {
             name: 'authors',
             type: "array",
             of: [{ type: "reference", to: { type: "author" } }],

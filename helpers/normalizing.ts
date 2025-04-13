@@ -17,7 +17,7 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
         })),
         age: parseInt(book.age),
     } as Book;
-    normalizedBook.searchableDataSerialized = `${normalizedBook.title}${normalizedBook.authors.map(a => a.name).join(", ")}${normalizedBook.illustrators.map(i => i.name).join(", ")}${normalizedBook.publisher?.name || ""}${normalizedBook.bookCategory?.name || ""}`;
+    normalizedBook.searchableDataSerialized = `${normalizedBook.title}${normalizedBook.originalTitle || ""}${normalizedBook.authors.map(a => a.name).join(", ")}${normalizedBook.illustrators.map(i => i.name).join(", ")}${normalizedBook.publisher?.name || ""}${normalizedBook.bookCategory?.name || ""}`;
     return normalizedBook;
 }
 

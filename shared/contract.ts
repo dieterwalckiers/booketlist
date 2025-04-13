@@ -4,6 +4,7 @@ export interface Home {
 
 export interface IBook {
     title: string;
+    originalTitle?: string;
     description: any;
     cover: any;
     slug: string;
