@@ -24,6 +24,7 @@ const Layout: React.FC<Props> = ({ navItems, settings, children, alignLeft }) =>
                 id="layout"
                 width={{ base: "auto", md: "min(70vw, 1300px)" }}
                 margin="auto"
+                pb={{ base: 10, md: 16 }}
             >
                 <Navbar navItems={navItems} logoData={logoData} />
                 <Box
