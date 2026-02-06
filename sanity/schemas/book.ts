@@ -60,6 +60,7 @@ const book = {
             title: "Sold language rights",
             type: "array",
             of: [{ type: "reference", to: { type: "languageRight" } }],
+            validation: Rule => Rule.unique(),
         },
         {
             name: 'isHighlighted',
