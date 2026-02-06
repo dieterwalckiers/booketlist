@@ -11,7 +11,7 @@ export function normalizeBook(book: any, skipNormAuthor = false): Book {
         authors: skipNormAuthor ? (book.authors || []) : (book.authors || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         illustrators: skipNormAuthor ? (book.illustrators || []) : (book.illustrators || []).filter(a => !!a).map(a => normalizeAuthor(a, true)),
         publisher: (skipNormAuthor || !book.publisher ? book.publisher : normalizePublisher(book.publisher)) || null,
-        soldLanguageRights: skipNormAuthor ? (book.soldLanguageRights || []) : (book.soldLanguageRights || []).map(({ languageCode }) => ({
+        soldLanguageRights: skipNormAuthor ? (book.soldLanguageRights || []) : (book.soldLanguageRights || []).filter(Boolean).map(({ languageCode }) => ({
             code: languageCode,
             name: getLangName(languageCode),
         })),
