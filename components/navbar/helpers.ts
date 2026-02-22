@@ -1,46 +1,58 @@
+import { Author, Book, BookCategory, Page, Publisher } from 'shared/contract'
 
-import { Author, Book, BookCategory, Page, Publisher } from "shared/contract";
-
-import { NavItem } from "./contract";
+import { NavItem } from './contract'
 
 export function buildNavItems(
-    bookCategories: BookCategory[],
-    publishers: Publisher[],
-    authors: Author[],
-    pages: Page[],
+  bookCategories: BookCategory[],
+  publishers: Publisher[],
+  authors: Author[],
+  pages: Page[],
+  hasBlogPosts: boolean
 ): Array<NavItem> {
-    return [
+  return [
+    {
+      label: 'Books',
+      href: '/books',
+      children: [
         {
-            label: "Books",
-            href: "/books",
-            children: [
-                {
-                    label: "All Books",
-                    href: "/books",
-                },
-                ...bookCategories.map((bookCategory) => ({
-                    label: bookCategory.name,
-                    href: `/cat/${bookCategory.slug}`,
-                })),
-            ],
+          label: 'All Books',
+          href: '/books',
         },
-        {
-            label: "Publishers",
-            children: publishers.map((publisher) => ({
-                label: publisher.name,
-                href: `/publishers/${publisher.slug}`,
-            })),
-        },
-        {
-            label: "Authors & Illustrators",
-            children: authors.filter(a => a.showInMenu).map((author) => ({
-                label: author.name,
-                href: `/authors/${author.slug}`,
-            })),
-        },
-        ...pages.filter(p => !(p.hideInMenu)).map(page => ({
-            label: page.title,
-            href: `/page/${page.slug}`,
+        ...bookCategories.map((bookCategory) => ({
+          label: bookCategory.name,
+          href: `/cat/${bookCategory.slug}`,
         })),
-    ]
+      ],
+    },
+    {
+      label: 'Publishers',
+      children: publishers.map((publisher) => ({
+        label: publisher.name,
+        href: `/publishers/${publisher.slug}`,
+      })),
+    },
+    {
+      label: 'Authors & Illustrators',
+      children: authors
+        .filter((a) => a.showInMenu)
+        .map((author) => ({
+          label: author.name,
+          href: `/authors/${author.slug}`,
+        })),
+    },
+    ...(hasBlogPosts
+      ? [
+          {
+            label: 'Blog',
+            href: '/blog',
+          },
+        ]
+      : []),
+    ...pages
+      .filter((p) => !p.hideInMenu)
+      .map((page) => ({
+        label: page.title,
+        href: `/page/${page.slug}`,
+      })),
+  ]
 }

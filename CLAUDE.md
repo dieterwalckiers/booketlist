@@ -61,6 +61,7 @@ Menu items are built dynamically from Sanity data in `components/navbar/helpers.
 ## Environment Variables
 
 Required in `.env.local` (see `.env.local.example`):
+
 - `NEXT_PUBLIC_SANITY_PROJECT_ID` — Sanity project ID
 - `NEXT_PUBLIC_SANITY_DATASET` — Sanity dataset name
 - `SANITY_API_READ_TOKEN` — Server-side Sanity read token (used in `getStaticProps`)

@@ -10,14 +10,17 @@ const GlobalStyle = createGlobalStyle(({ theme }) => ({
 }))
 
 export default function StudioPage() {
-  const NS = NextStudio as any;
+  const NS = NextStudio as any
   return (
     <>
       <Head>
         {Object.entries(metadata).map(([key, value]) => (
           <meta key={key} name={key} content={value} />
         ))}
-        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,viewport-fit=cover"
+        />
       </Head>
       <NS config={config}>
         <StudioProvider config={config}>

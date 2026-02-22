@@ -1,25 +1,25 @@
 const titleElement = {
-  type: "object",
-  name: "titleElement",
-  title: "Titel",
+  type: 'object',
+  name: 'titleElement',
+  title: 'Titel',
   fields: [
     {
-      name: "value",
-      title: "Titel",
-      type: "string",
+      name: 'value',
+      title: 'Titel',
+      type: 'string',
     },
   ],
   preview: {
     select: {
-      value: "value",
+      value: 'value',
     },
     prepare(selection) {
       return {
         title: selection.value,
-        media: <span>H2</span>
-      };
-    }
-  }
-};
+        media: <span>H2</span>,
+      }
+    },
+  },
+}
 
-export default titleElement;
+export default titleElement

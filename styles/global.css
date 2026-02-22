@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "../vendor/mailchimp/classic-061523.css";
+@import '../vendor/mailchimp/classic-061523.css';
 
 :root {
   color-scheme: light only;

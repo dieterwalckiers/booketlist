@@ -1,24 +1,36 @@
-import {
-    Stack,
-} from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react'
+import { NavItem } from 'components/navbar/contract'
 
-import MobileNavItem from "./MobileNavItem";
+import MobileNavItem from './MobileNavItem'
 
-const MobileNav = ({ navItems, reqCloseMenu }) => {
-    return (
-        <Stack
-            bg="white"
-            p={4}
-            display={{ md: 'none' }}>
-            {(navItems || []).map((navItem) => (
-                <MobileNavItem
-                    key={navItem.label}
-                    {...navItem}
-                    reqCloseMenu={reqCloseMenu}
-                />
-            ))}
-        </Stack>
-    );
-};
+interface Props {
+  navItems: NavItem[]
+  reqCloseMenu: () => void
+  menuOpen: boolean
+}
 
-export default MobileNav;
+const MobileNav = ({ navItems, reqCloseMenu, menuOpen }: Props) => {
+  return (
+    <Stack
+      bg="white"
+      p={4}
+      spacing={8}
+      display={{ lg: 'none' }}
+      maxH="calc(100vh - 60px)"
+      overflowY="auto"
+      borderBottom="1px solid"
+      borderColor="gray.200"
+    >
+      {(navItems || []).map((navItem) => (
+        <MobileNavItem
+          key={navItem.label}
+          {...navItem}
+          reqCloseMenu={reqCloseMenu}
+          menuOpen={menuOpen}
+        />
+      ))}
+    </Stack>
+  )
+}
+
+export default MobileNav
