@@ -38,7 +38,10 @@ export default function NavBar({ navItems, logoData }: Props) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrolled((prev) => {
+        if (prev) return window.scrollY > 5
+        return window.scrollY > 50
+      })
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
