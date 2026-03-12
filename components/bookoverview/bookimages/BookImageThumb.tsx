@@ -24,7 +24,17 @@ const BookImageThumb: React.FC<Props> = ({
 }) => {
   const imageProps = useNextSanityImage(
     client,
-    image as unknown as SanityImageSource
+    image as unknown as SanityImageSource,
+    {
+      imageBuilder: (imageUrlBuilder, options) => {
+        const width =
+          options.width !== null ? Math.min(options.width, 160) : 160
+        return imageUrlBuilder
+          .width(width)
+          .quality(options.quality || 75)
+          .fit('clip')
+      },
+    }
   )
   if (!imageProps || !image.asset) return null
 
