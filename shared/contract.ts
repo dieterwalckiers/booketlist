@@ -25,7 +25,7 @@ export interface IBook {
   cover: any
   slug: string
   publisher: Publisher
-  bookCategory: BookCategory
+  bookCategory: BookCategory | null
   age: number
 }
 

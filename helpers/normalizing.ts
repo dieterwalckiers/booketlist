@@ -107,7 +107,10 @@ export function normalizeAuthor<A extends IAuthor>(
   }
 }
 
-export function normalizeBookCategory(bookCategory: any): BookCategory {
+export function normalizeBookCategory(
+  bookCategory: any
+): BookCategory | null {
+  if (!bookCategory) return null
   return {
     ...bookCategory,
     slug: bookCategory.slug?.current || null,
