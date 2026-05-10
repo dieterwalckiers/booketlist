@@ -48,8 +48,35 @@ const BlogImage: React.FC<BlogImageProps> = ({ value }) => {
   )
 }
 
+interface LinkProps {
+  value?: {
+    href?: string
+    blank?: boolean
+  }
+  children: React.ReactNode
+}
+
+const BlogLink: React.FC<LinkProps> = ({ value, children }) => {
+  const href = value?.href || '#'
+  const isExternal = /^https?:\/\//i.test(href)
+  const openInNewTab = value?.blank ?? isExternal
+  return (
+    <a
+      href={href}
+      target={openInNewTab ? '_blank' : undefined}
+      rel={openInNewTab ? 'noopener noreferrer' : undefined}
+      style={{ color: '#ef4e41', textDecoration: 'underline' }}
+    >
+      {children}
+    </a>
+  )
+}
+
 export const blogPortableTextComponents = {
   types: {
     image: BlogImage,
+  },
+  marks: {
+    link: BlogLink,
   },
 }
