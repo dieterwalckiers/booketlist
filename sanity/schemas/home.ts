@@ -17,5 +17,12 @@ const home = {
       ],
     },
   ],
+  preview: {
+    prepare() {
+      return {
+        title: 'Home',
+      }
+    },
+  },
 }
 export default home
