@@ -6,6 +6,7 @@ import React from 'react'
 import { SanityImage } from 'shared/contract'
 
 import { client } from '../../../sanity/lib/client'
+import { sanityImageBuilder } from '../../../sanity/lib/image'
 
 interface Props {
   bookTitle: string
@@ -25,16 +26,7 @@ const BookImageThumb: React.FC<Props> = ({
   const imageProps = useNextSanityImage(
     client,
     image as unknown as SanityImageSource,
-    {
-      imageBuilder: (imageUrlBuilder, options) => {
-        const width =
-          options.width !== null ? Math.min(options.width, 160) : 160
-        return imageUrlBuilder
-          .width(width)
-          .quality(options.quality || 75)
-          .fit('clip')
-      },
-    }
+    { imageBuilder: sanityImageBuilder(160) }
   )
   if (!imageProps || !image.asset) return null
 

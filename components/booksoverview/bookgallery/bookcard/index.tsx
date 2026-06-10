@@ -6,6 +6,7 @@ import React from 'react'
 import { IBook } from 'shared/contract'
 
 import { client } from '../../../../sanity/lib/client'
+import { sanityImageBuilder } from '../../../../sanity/lib/image'
 
 interface IProps {
   book: IBook
@@ -14,7 +15,8 @@ interface IProps {
 const BookCard: React.FC<IProps> = ({ book }) => {
   const bookCoverImageProps: Record<string, any> = useNextSanityImage(
     client,
-    book.cover
+    book.cover,
+    { imageBuilder: sanityImageBuilder() }
   )
 
   return (

@@ -3,11 +3,12 @@ import { PortableText } from '@portabletext/react'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import PageElementWrapper from 'components/page/pageElements/pageElement/wrapper'
 import Image from 'next/image'
-import { useNextSanityImage,UseNextSanityImageProps } from 'next-sanity-image'
+import { useNextSanityImage, UseNextSanityImageProps } from 'next-sanity-image'
 import React from 'react'
 import { BlogPost } from 'shared/contract'
 
 import { client } from '../../sanity/lib/client'
+import { sanityImageBuilder } from '../../sanity/lib/image'
 import { formatBlogDate } from './helpers'
 import { blogPortableTextComponents } from './portableTextComponents'
 
@@ -18,7 +19,8 @@ interface Props {
 const CoverImage: React.FC<{ post: BlogPost }> = ({ post }) => {
   const imageProps: UseNextSanityImageProps | null = useNextSanityImage(
     client,
-    post.coverImage?.asset as SanityImageSource | null
+    post.coverImage?.asset as SanityImageSource | null,
+    { imageBuilder: sanityImageBuilder() }
   )
 
   if (!post.coverImage?.asset || !imageProps) return null
@@ -78,7 +80,6 @@ const BlogPostDetail: React.FC<Props> = ({ post }) => {
           components={blogPortableTextComponents}
         />
       </Box>
-
     </PageElementWrapper>
   )
 }

@@ -4,6 +4,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 import React from 'react'
 
 import { client } from '../../../sanity/lib/client'
+import { sanityImageBuilder } from '../../../sanity/lib/image'
 
 interface IProps {
   logoData: any
@@ -13,7 +14,8 @@ interface IProps {
 const Logo: React.FC<IProps> = ({ logoData, scrolled }) => {
   const logoImageProps: Record<string, any> = useNextSanityImage(
     client,
-    logoData
+    logoData,
+    { imageBuilder: sanityImageBuilder() }
   )
 
   const logoWidth = scrolled ? '200px' : '300px'

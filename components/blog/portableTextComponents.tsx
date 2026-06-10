@@ -1,10 +1,11 @@
 import { Box, Text } from '@chakra-ui/react'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import Image from 'next/image'
-import { useNextSanityImage,UseNextSanityImageProps } from 'next-sanity-image'
+import { useNextSanityImage, UseNextSanityImageProps } from 'next-sanity-image'
 import React from 'react'
 
 import { client } from '../../sanity/lib/client'
+import { sanityImageBuilder } from '../../sanity/lib/image'
 
 interface BlogImageProps {
   value: {
@@ -17,7 +18,8 @@ interface BlogImageProps {
 const BlogImage: React.FC<BlogImageProps> = ({ value }) => {
   const imageProps: UseNextSanityImageProps | null = useNextSanityImage(
     client,
-    value.asset
+    value.asset,
+    { imageBuilder: sanityImageBuilder() }
   )
 
   if (!imageProps) return null

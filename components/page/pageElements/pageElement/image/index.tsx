@@ -4,6 +4,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 import * as React from 'react'
 
 import { client } from '../../../../../sanity/lib/client'
+import { sanityImageBuilder } from '../../../../../sanity/lib/image'
 import { PageElementImage } from '../../../../../shared/contract'
 
 interface IProps {
@@ -13,7 +14,11 @@ interface IProps {
 const PageElement: React.FC<IProps> = ({ element }) => {
   const imageData = element?.value
 
-  const imageProps: Record<string, any> = useNextSanityImage(client, imageData)
+  const imageProps: Record<string, any> = useNextSanityImage(
+    client,
+    imageData,
+    { imageBuilder: sanityImageBuilder() }
+  )
 
   const clickImg = () => {
     if (!element.link) {

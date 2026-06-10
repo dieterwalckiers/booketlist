@@ -10,6 +10,7 @@ import { useNextSanityImage } from 'next-sanity-image'
 import React from 'react'
 
 import { client } from '../../../../../sanity/lib/client'
+import { sanityImageBuilder } from '../../../../../sanity/lib/image'
 
 interface Props {
   asset: any
@@ -18,7 +19,9 @@ interface Props {
 }
 
 const GalleryCard: React.FC<Props> = ({ asset, cardWidthMd, link }) => {
-  const imageProps: Record<string, any> = useNextSanityImage(client, asset)
+  const imageProps: Record<string, any> = useNextSanityImage(client, asset, {
+    imageBuilder: sanityImageBuilder(),
+  })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 

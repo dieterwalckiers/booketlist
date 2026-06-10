@@ -2,11 +2,12 @@ import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useNextSanityImage,UseNextSanityImageProps } from 'next-sanity-image'
+import { useNextSanityImage, UseNextSanityImageProps } from 'next-sanity-image'
 import React from 'react'
 import { BlogPostSummary } from 'shared/contract'
 
 import { client } from '../../sanity/lib/client'
+import { sanityImageBuilder } from '../../sanity/lib/image'
 import { formatBlogDate } from './helpers'
 
 interface Props {
@@ -19,7 +20,8 @@ const CoverImage: React.FC<{
 }> = ({ coverImage, title }) => {
   const imageProps: UseNextSanityImageProps | null = useNextSanityImage(
     client,
-    coverImage?.asset as SanityImageSource | null
+    coverImage?.asset as SanityImageSource | null,
+    { imageBuilder: sanityImageBuilder() }
   )
 
   if (!coverImage?.asset || !imageProps) return null

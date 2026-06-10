@@ -7,6 +7,7 @@ import { Book, BookMediaItem } from 'shared/contract'
 
 import { extractYouTubeId } from '../../../helpers/youtube'
 import { client } from '../../../sanity/lib/client'
+import { sanityImageBuilder } from '../../../sanity/lib/image'
 import BookImageThumb from './BookImageThumb'
 import BookVideoThumb from './BookVideoThumb'
 
@@ -29,7 +30,8 @@ const BookImages: React.FC<Props> = ({ book }) => {
   const imageForHook = isActiveYouTube ? null : activeItem
   const activeImageProps = useNextSanityImage(
     client,
-    imageForHook as SanityImageSource | null
+    imageForHook as SanityImageSource | null,
+    { imageBuilder: sanityImageBuilder() }
   )
 
   const activeVideoId =
