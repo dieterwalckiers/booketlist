@@ -1,3 +1,4 @@
+import { ResizingImageArrayInput } from '../components/ResizingImageArrayInput'
 import { ResizingImageInput } from '../components/ResizingImageInput'
 import { imageSizeValidation, imageUploadHint } from '../lib/imageValidation'
 
@@ -59,12 +60,12 @@ const book = {
         {
           type: 'image',
           validation: imageSizeValidation,
-          components: { input: ResizingImageInput },
         },
         { type: 'youtube' },
       ],
       title: 'Additional media',
       description: imageUploadHint,
+      components: { input: ResizingImageArrayInput },
     },
     {
       name: 'age',
