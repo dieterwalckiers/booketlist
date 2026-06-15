@@ -1,3 +1,6 @@
+import { ResizingImageInput } from '../components/ResizingImageInput'
+import { imageSizeValidation, imageUploadHint } from '../lib/imageValidation'
+
 const blogPost = {
   name: 'blogPost',
   type: 'document',
@@ -29,9 +32,12 @@ const blogPost = {
       name: 'coverImage',
       type: 'image',
       title: 'Cover Image',
+      description: imageUploadHint,
       options: {
         hotspot: true,
       },
+      validation: imageSizeValidation,
+      components: { input: ResizingImageInput },
     },
     {
       name: 'publishedAt',
@@ -85,6 +91,8 @@ const blogPost = {
         {
           type: 'image',
           options: { hotspot: true },
+          validation: imageSizeValidation,
+          components: { input: ResizingImageInput },
           fields: [
             {
               name: 'alt',

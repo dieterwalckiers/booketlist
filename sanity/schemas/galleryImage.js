@@ -1,3 +1,6 @@
+import { ResizingImageInput } from '../components/ResizingImageInput'
+import { imageSizeValidation, imageUploadHint } from '../lib/imageValidation'
+
 const galleryImage = {
   type: 'object',
   name: 'galleryImage',
@@ -7,6 +10,9 @@ const galleryImage = {
       name: 'value',
       title: 'Image',
       type: 'image',
+      description: imageUploadHint,
+      validation: imageSizeValidation,
+      components: { input: ResizingImageInput },
     },
     {
       name: 'link',

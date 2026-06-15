@@ -124,6 +124,7 @@ You can remove it by deleting `intro-template`, and removing `IntroTemplate` usa
 ## Next steps
 
 - [Setup live preview](./docs/studio-preview.md)
+- [Reducing Sanity CDN bandwidth](./docs/cdn-bandwidth.md)
 - [Join our Slack community to ask questions and get help][sanity-community]
 - [How to edit my content structure?][sanity-schema-types]
 - [How to query content?][sanity-groq]

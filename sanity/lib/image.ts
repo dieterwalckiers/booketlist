@@ -31,6 +31,11 @@ const DEFAULT_QUALITY = 65
  * assets are large PNGs, so a single hero image ships ~2MB instead of ~60KB.
  * That fallback cliff was the dominant driver of Sanity CDN bandwidth.
  *
+ * Also uses `fit=max` instead of `fit=clip` so Sanity NEVER upscales: a request
+ * for a width larger than the source returns the source size, not an upscaled
+ * (and far heavier) image. Scrapers were requesting `w=3840` against ~350px
+ * source covers, and `fit=clip` upscaled a 235KB PNG into a ~16MB response.
+ *
  * @param maxWidth optional hard cap on the requested width (e.g. thumbnails).
  */
 export const sanityImageBuilder =
@@ -44,5 +49,5 @@ export const sanityImageBuilder =
       .width(width)
       .format('webp')
       .quality(options.quality || DEFAULT_QUALITY)
-      .fit('clip')
+      .fit('max')
   }

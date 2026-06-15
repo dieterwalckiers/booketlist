@@ -1,3 +1,6 @@
+import { ResizingImageInput } from '../components/ResizingImageInput'
+import { imageSizeValidation, imageUploadHint } from '../lib/imageValidation'
+
 const book = {
   name: 'book',
   type: 'document',
@@ -45,12 +48,23 @@ const book = {
       name: 'cover',
       type: 'image',
       title: 'Cover',
+      description: imageUploadHint,
+      validation: imageSizeValidation,
+      components: { input: ResizingImageInput },
     },
     {
       name: 'additionalImages',
       type: 'array',
-      of: [{ type: 'image' }, { type: 'youtube' }],
+      of: [
+        {
+          type: 'image',
+          validation: imageSizeValidation,
+          components: { input: ResizingImageInput },
+        },
+        { type: 'youtube' },
+      ],
       title: 'Additional media',
+      description: imageUploadHint,
     },
     {
       name: 'age',
