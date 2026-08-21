@@ -49,10 +49,13 @@
  *   node scripts/optimize-oversized-assets.mjs --orphans                        # dry run
  *   SANITY_API_WRITE_TOKEN=sk... node scripts/optimize-oversized-assets.mjs --orphans --apply
  */
-import { createClient } from '@sanity/client'
+import {
+  createAssetClient,
+  deleteAsset,
+  MB,
+  replaceRef,
+} from './lib/sanity-assets.mjs'
 
-const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '489ops8g'
-const DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 const TOKEN = process.env.SANITY_API_WRITE_TOKEN
 
 // Output cap — matches sanity/lib/optimizeImage.ts so a backfilled image is
@@ -62,7 +65,6 @@ const QUALITY = 82
 
 // Selection thresholds — match sanity/lib/imageValidation.ts (what editors see
 // as an error). With --all, fall back to the auto-optimizer's own thresholds.
-const MB = 1024 * 1024
 const MAX_BYTES = 1.5 * MB
 const FAIL_WIDTH = 2500
 
@@ -88,34 +90,7 @@ if (!TOKEN && APPLY) {
   process.exit(1)
 }
 
-const client = createClient({
-  projectId: PROJECT_ID,
-  dataset: DATASET,
-  apiVersion: '2023-01-01',
-  token: TOKEN,
-  useCdn: false,
-  // Explicit: reference checks MUST see drafts too, or we would treat an asset
-  // used only by an unpublished draft as unreferenced.
-  perspective: 'raw',
-})
-
-// Recursively replace every `{_ref: oldId}` with newId, in place.
-function replaceRef(node, oldId, newId) {
-  let count = 0
-  if (Array.isArray(node)) {
-    for (const item of node) count += replaceRef(item, oldId, newId)
-  } else if (node && typeof node === 'object') {
-    for (const [k, v] of Object.entries(node)) {
-      if (k === '_ref' && v === oldId) {
-        node._ref = newId
-        count++
-      } else {
-        count += replaceRef(v, oldId, newId)
-      }
-    }
-  }
-  return count
-}
+const client = createAssetClient(TOKEN)
 
 // Transparent -> WebP (alpha-capable and vastly smaller than PNG), WebP stays
 // WebP, the rest becomes JPEG. Re-encoding a transparent PNG *as PNG* saves
@@ -129,31 +104,6 @@ function targetFormat(asset) {
 
 function fits(asset) {
   return asset.w <= FAIL_WIDTH && asset.size <= MAX_BYTES
-}
-
-/**
- * Delete an asset and CONFIRM it is gone, rather than trusting the promise.
- *
- * Note that --delete only ever removes an original this pass repointed. An
- * original orphaned by an EARLIER --apply pass is invisible to a later
- * --delete: the selection query only matches referenced assets, so once an
- * asset is orphaned it drops out of scope. Running --apply then --delete as two
- * separate invocations therefore leaves the originals behind — that is how 14
- * of them survived the Aug 2026 backfill. Use --orphans to sweep those up.
- *
- * Returns an { ok, error } result instead of throwing, so one stubborn asset
- * cannot abort the whole run.
- */
-async function deleteAsset(id) {
-  try {
-    await client.delete(id)
-  } catch (e) {
-    return { ok: false, error: e.message }
-  }
-  const survived = await client.fetch(`defined(*[_id == $id][0]._id)`, { id })
-  return survived
-    ? { ok: false, error: 'delete reported success but the asset still exists' }
-    : { ok: true }
 }
 
 /**
@@ -210,7 +160,7 @@ async function runOrphans() {
       console.log(`  [dry] would delete ${label}`)
       continue
     }
-    const res = await deleteAsset(a._id)
+    const res = await deleteAsset(client, a._id)
     if (res.ok) {
       deleted++
       reclaimed += a.size
@@ -338,7 +288,7 @@ async function run() {
     let deleteNote = ''
     if (DELETE) {
       // Asset delete fails if any reference remains — a built-in safety net.
-      const res = await deleteAsset(a._id)
+      const res = await deleteAsset(client, a._id)
       deleteNote = res.ok
         ? ' | deleted original'
         : ` | ORIGINAL NOT DELETED: ${res.error}`

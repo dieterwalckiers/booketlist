@@ -1,6 +1,6 @@
 import { Input } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
 import { debounce } from 'lodash'
+import React, { useEffect } from 'react'
 
 interface Props {
   searchString: string

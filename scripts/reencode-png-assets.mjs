@@ -24,10 +24,13 @@
  *   SANITY_API_WRITE_TOKEN=sk... node scripts/reencode-png-assets.mjs --apply --limit=3
  *   SANITY_API_WRITE_TOKEN=sk... node scripts/reencode-png-assets.mjs --apply --delete
  */
-import { createClient } from '@sanity/client'
+import {
+  createAssetClient,
+  deleteAsset,
+  MB,
+  replaceRef,
+} from './lib/sanity-assets.mjs'
 
-const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '489ops8g'
-const DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 const TOKEN = process.env.SANITY_API_WRITE_TOKEN
 const JPEG_QUALITY = 80
 
@@ -37,38 +40,14 @@ const LIMIT = Number(
   (process.argv.find((a) => a.startsWith('--limit=')) || '').split('=')[1] || 0
 )
 
-if (!TOKEN) {
+// The dataset is public-read, so a dry run needs no credentials — only writing
+// does. This keeps the preview runnable without handling a token.
+if (!TOKEN && APPLY) {
   console.error('Missing SANITY_API_WRITE_TOKEN env var (needs Editor rights).')
   process.exit(1)
 }
 
-const client = createClient({
-  projectId: PROJECT_ID,
-  dataset: DATASET,
-  apiVersion: '2023-01-01',
-  token: TOKEN,
-  useCdn: false,
-})
-
-const MB = 1024 * 1024
-
-// Recursively replace every `{_ref: oldId}` with newId, in place.
-function replaceRef(node, oldId, newId) {
-  let count = 0
-  if (Array.isArray(node)) {
-    for (const item of node) count += replaceRef(item, oldId, newId)
-  } else if (node && typeof node === 'object') {
-    for (const [k, v] of Object.entries(node)) {
-      if (k === '_ref' && v === oldId) {
-        node._ref = newId
-        count++
-      } else {
-        count += replaceRef(v, oldId, newId)
-      }
-    }
-  }
-  return count
-}
+const client = createAssetClient(TOKEN)
 
 async function run() {
   // Opaque PNG assets only (isOpaque == true means no real transparency).
@@ -90,6 +69,7 @@ async function run() {
 
   let savedBytes = 0
   let done = 0
+  let undeleted = 0
   for (const a of work) {
     const jpgUrl = `${a.url}?fm=jpg&q=${JPEG_QUALITY}&fit=max`
     const res = await fetch(jpgUrl)
@@ -130,17 +110,21 @@ async function run() {
       }
     }
 
+    let deleteNote = ''
     if (DELETE) {
       // Asset delete fails if any reference remains — a built-in safety net.
-      await client.delete(a._id)
+      // Not `res` — that is the fetch response above.
+      const del = await deleteAsset(client, a._id)
+      deleteNote = del.ok
+        ? ' | deleted original'
+        : ` | ORIGINAL NOT DELETED: ${del.error}`
+      if (!del.ok) undeleted++
     }
 
     savedBytes += a.size - newSize
     done++
     console.log(
-      `  ✓ ${label} | repointed ${patched} refs in ${refDocs.length} docs${
-        DELETE ? ' | deleted original' : ''
-      }`
+      `  ✓ ${label} | repointed ${patched} refs in ${refDocs.length} docs${deleteNote}`
     )
   }
 
@@ -149,6 +133,12 @@ async function run() {
       savedBytes / MB
     ).toFixed(1)} MB.`
   )
+  if (undeleted)
+    console.log(
+      `\nWARNING: ${undeleted} original(s) survived --delete and are now ` +
+        'unreferenced. Clean them up with:\n' +
+        '  node scripts/optimize-oversized-assets.mjs --orphans'
+    )
   if (!APPLY) console.log('Dry run only — re-run with --apply to write.')
   if (APPLY && !DELETE)
     console.log(
