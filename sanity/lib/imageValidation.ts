@@ -31,10 +31,15 @@ async function fetchAssetMeta(
 /**
  * Validation for image fields. Use as `validation: imageSizeValidation`.
  *
- * Hard-blocks publishing images that are too large (by width or bytes) and
- * warns when a photo is uploaded as PNG. Note Sanity always stores the original
- * upload as-is — this runs after upload and refuses to publish until the editor
- * replaces an oversized image; it does not shrink the stored file.
+ * Hard-blocks publishing images wider than MAX_WIDTH — width is what makes the
+ * upscale bomb explosive, so it stays an error. File size is only a warning, so
+ * that an image which genuinely cannot be reduced never leaves an editor stuck
+ * on a document they are unable to publish. Also warns when a photo is uploaded
+ * as PNG.
+ *
+ * Note Sanity always stores the original upload as-is — this runs after upload
+ * and refuses to publish until the editor replaces an oversized image; it does
+ * not shrink the stored file.
  */
 export const imageSizeValidation = (rule: Rule) => [
   rule.custom(async (value: ImageValue | undefined, context) => {
@@ -44,13 +49,21 @@ export const imageSizeValidation = (rule: Rule) => [
     if (meta?.w && meta.w > MAX_WIDTH) {
       return `Image is ${meta.w}px wide — please upload one no wider than ${MAX_WIDTH}px.`
     }
-    if (meta?.size && meta.size > MAX_BYTES) {
-      return `Image is ${(meta.size / (1024 * 1024)).toFixed(
-        1
-      )}MB — please keep it under 1.5MB.`
-    }
     return true
   }),
+  rule
+    .custom(async (value: ImageValue | undefined, context) => {
+      const ref = value?.asset?._ref
+      if (!ref) return true
+      const meta = await fetchAssetMeta(ref, context)
+      if (meta?.size && meta.size > MAX_BYTES) {
+        return `Image is ${(meta.size / (1024 * 1024)).toFixed(
+          1
+        )}MB — smaller is better for page speed, but you can still publish.`
+      }
+      return true
+    })
+    .warning(),
   rule
     .custom(async (value: ImageValue | undefined, context) => {
       const ref = value?.asset?._ref

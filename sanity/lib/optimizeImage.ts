@@ -57,7 +57,10 @@ export async function optimizeAsset(
     duration: 60000,
   })
   try {
-    const fmt = meta.isOpaque ? 'jpg' : 'png'
+    // Transparent images go to WebP, not PNG: WebP carries an alpha channel and
+    // is an order of magnitude smaller (12-29x on this dataset's covers with
+    // drop shadows). Re-encoding a transparent PNG as PNG saves nothing.
+    const fmt = meta.isOpaque ? 'jpg' : 'webp'
     const url = `${meta.url}?w=${MAX_WIDTH}&fit=max&fm=${fmt}&q=${QUALITY}`
     const blob = await fetch(url).then((r) => r.blob())
     const base = (meta.originalFilename || 'image').replace(/\.\w+$/, '')
